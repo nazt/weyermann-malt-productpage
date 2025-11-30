@@ -559,3 +559,10 @@ Ctrl+b, d              # Detach from session
 
 **Last Updated**: [Date]
 **Version**: 1.0.0
+
+## Active Technologies
+- HTML5, CSS3, JavaScript ES6+ + None (vanilla approach per constitution) (001-product-display)
+- products.json (static file, read-only) (001-product-display)
+
+## Recent Changes
+- 001-product-display: Added HTML5, CSS3, JavaScript ES6+ + None (vanilla approach per constitution)
