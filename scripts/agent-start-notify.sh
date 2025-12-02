@@ -42,9 +42,17 @@ get_voice() {
     esac
 }
 
-# Get speech rate
+# Get speech rate for agent
 get_rate() {
-    get_toml "rate" "default" "220"
+    local agent_name="$1"
+    case "$agent_name" in
+        *"Main"*) get_toml "rate" "main" "195" ;;
+        *"Agent 1"*) get_toml "rate" "agent_1" "220" ;;
+        *"Agent 2"*) get_toml "rate" "agent_2" "220" ;;
+        *"Agent 3"*) get_toml "rate" "agent_3" "220" ;;
+        *subagent*|*Subagent*|*Starting*) get_toml "rate" "subagent" "220" ;;
+        *) get_toml "rate" "default" "220" ;;
+    esac
 }
 
 # Read JSON input from stdin
@@ -119,7 +127,7 @@ fi
 if command -v say &> /dev/null; then
     # Get voice and rate for this agent
     VOICE=$(get_voice "$AGENT_NAME")
-    RATE=$(get_rate)
+    RATE=$(get_rate "$AGENT_NAME")
 
     MESSAGE="$AGENT_NAME"
     if [ -n "$DESCRIPTION" ]; then
