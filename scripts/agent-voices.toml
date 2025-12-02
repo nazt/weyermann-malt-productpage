@@ -1,0 +1,11 @@
+# Agent Voice Configuration
+# Maps agent identifiers to macOS say voices
+# List available voices with: say -v '?'
+
+[voices]
+main = "Samantha"        # Clear, natural voice
+agent_1 = "Daniel"       # British male
+agent_2 = "Karen"        # Australian female
+agent_3 = "Rishi"        # Indian male
+subagent = "Fred"        # Robotic/distinct
+default = "Samantha"     # Fallback

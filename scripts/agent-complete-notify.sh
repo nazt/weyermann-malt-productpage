@@ -6,30 +6,40 @@ set -euo pipefail
 
 # Get script directory for sourcing config
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TOML_FILE="$SCRIPT_DIR/agent-voices.toml"
 
-# Source voice configuration
-if [ -f "$SCRIPT_DIR/agent-voices.conf" ]; then
-    source "$SCRIPT_DIR/agent-voices.conf"
-else
-    # Fallback defaults
-    VOICE_MAIN="Samantha"
-    VOICE_AGENT_1="Daniel"
-    VOICE_AGENT_2="Karen"
-    VOICE_AGENT_3="Rishi"
-    VOICE_SUBAGENT="Fred"
-    VOICE_DEFAULT="Samantha"
-fi
+# Parse TOML value using yq (primary) or stoml (fallback)
+get_toml_value() {
+    local key="$1"
+    local default="$2"
+
+    if [ ! -f "$TOML_FILE" ]; then
+        echo "$default"
+        return
+    fi
+
+    local value=""
+    # Try yq first (already installed)
+    if command -v yq &> /dev/null; then
+        value=$(yq -p toml -oy ".voices.${key}" "$TOML_FILE" 2>/dev/null | grep -v "null")
+    # Fallback to stoml
+    elif command -v stoml &> /dev/null; then
+        value=$(stoml "$TOML_FILE" "voices.${key}" 2>/dev/null)
+    fi
+
+    echo "${value:-$default}"
+}
 
 # Get voice for agent
 get_voice() {
     local agent_name="$1"
     case "$agent_name" in
-        "Main") echo "$VOICE_MAIN" ;;
-        "Agent 1") echo "$VOICE_AGENT_1" ;;
-        "Agent 2") echo "$VOICE_AGENT_2" ;;
-        "Agent 3") echo "$VOICE_AGENT_3" ;;
-        "Subagent") echo "$VOICE_SUBAGENT" ;;
-        *) echo "$VOICE_DEFAULT" ;;
+        "Main") get_toml_value "main" "Samantha" ;;
+        "Agent 1") get_toml_value "agent_1" "Daniel" ;;
+        "Agent 2") get_toml_value "agent_2" "Karen" ;;
+        "Agent 3") get_toml_value "agent_3" "Rishi" ;;
+        "Subagent") get_toml_value "subagent" "Fred" ;;
+        *) get_toml_value "default" "Samantha" ;;
     esac
 }
 
