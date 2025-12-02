@@ -9,9 +9,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOML_FILE="$SCRIPT_DIR/agent-voices.toml"
 
 # Parse TOML value using yq (primary) or stoml (fallback)
-get_toml_value() {
-    local key="$1"
-    local default="$2"
+get_toml() {
+    local section="$1"
+    local key="$2"
+    local default="$3"
 
     if [ ! -f "$TOML_FILE" ]; then
         echo "$default"
@@ -19,12 +20,10 @@ get_toml_value() {
     fi
 
     local value=""
-    # Try yq first (already installed)
     if command -v yq &> /dev/null; then
-        value=$(yq -p toml -oy ".voices.${key}" "$TOML_FILE" 2>/dev/null | grep -v "null")
-    # Fallback to stoml
+        value=$(yq -p toml -oy ".${section}.${key}" "$TOML_FILE" 2>/dev/null | grep -v "null")
     elif command -v stoml &> /dev/null; then
-        value=$(stoml "$TOML_FILE" "voices.${key}" 2>/dev/null)
+        value=$(stoml "$TOML_FILE" "${section}.${key}" 2>/dev/null)
     fi
 
     echo "${value:-$default}"
@@ -34,13 +33,18 @@ get_toml_value() {
 get_voice() {
     local agent_name="$1"
     case "$agent_name" in
-        "Main") get_toml_value "main" "Samantha" ;;
-        "Agent 1") get_toml_value "agent_1" "Daniel" ;;
-        "Agent 2") get_toml_value "agent_2" "Karen" ;;
-        "Agent 3") get_toml_value "agent_3" "Rishi" ;;
-        "Subagent") get_toml_value "subagent" "Fred" ;;
-        *) get_toml_value "default" "Samantha" ;;
+        "Main") get_toml "voices" "main" "Samantha" ;;
+        "Agent 1") get_toml "voices" "agent_1" "Daniel" ;;
+        "Agent 2") get_toml "voices" "agent_2" "Karen" ;;
+        "Agent 3") get_toml "voices" "agent_3" "Rishi" ;;
+        "Subagent") get_toml "voices" "subagent" "Daniel" ;;
+        *) get_toml "voices" "default" "Samantha" ;;
     esac
+}
+
+# Get speech rate
+get_rate() {
+    get_toml "rate" "default" "220"
 }
 
 # Read JSON input from stdin
@@ -110,8 +114,9 @@ if command -v say &> /dev/null; then
     SPEECH_QUEUE="${CLAUDE_PROJECT_DIR:-.}/.agent-locks/speech_queue"
     mkdir -p "$(dirname "$SPEECH_QUEUE")"
 
-    # Get voice for this agent
+    # Get voice and rate for this agent
     VOICE=$(get_voice "$AGENT_NAME")
+    RATE=$(get_rate)
 
     # Build message
     if [ -n "$LAST_MESSAGE" ]; then
@@ -126,7 +131,7 @@ if command -v say &> /dev/null; then
         while pgrep -x "say" > /dev/null; do
             sleep 0.5
         done
-        say -v "$VOICE" "$MESSAGE"
+        say -v "$VOICE" -r "$RATE" "$MESSAGE"
     ) &
 fi
 

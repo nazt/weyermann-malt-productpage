@@ -7,5 +7,9 @@ main = "Samantha"        # Clear, natural voice
 agent_1 = "Daniel"       # British male
 agent_2 = "Karen"        # Australian female
 agent_3 = "Rishi"        # Indian male
-subagent = "Fred"        # Robotic/distinct
+subagent = "Daniel"      # British male
 default = "Samantha"     # Fallback
+
+[rate]
+# Speech rate in words per minute (default ~175, faster = 220+)
+default = 220
