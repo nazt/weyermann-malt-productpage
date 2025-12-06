@@ -355,6 +355,31 @@ cat > ψ-retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md <<
 - What delighted you
 - Suggestions for improvement]
 
+## 🤝 Co-Creation Map
+| Contribution | Human | AI | Together |
+|--------------|-------|-----|----------|
+| Direction/Vision | | | |
+| Options/Alternatives | | | |
+| Final Decision | | | |
+| Execution | | | |
+| Meaning/Naming | | | |
+
+## ✨ Resonance Moments
+- [What was suggested] → [What you chose] → [Why it mattered]
+
+## 🎯 Intent vs Interpretation
+| You Said | I Understood | Gap? |
+|----------|--------------|------|
+| | | |
+
+## 🌱 Seeds Planted
+- [Ideas that emerged but saved for later]
+
+## 📚 Teaching Moments
+- **You → Me**: [What I learned from you]
+- **Me → You**: [What you learned from me]
+- **Us → Future**: [What we documented for next time]
+
 ## Lessons Learned
 - **Pattern**: [Description] - [Why it matters]
 - **Mistake**: [What happened] - [How to avoid]
@@ -374,13 +399,16 @@ cat > ψ-retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md <<
 **BEFORE SAVING, VERIFY ALL REQUIRED SECTIONS ARE COMPLETE:**
 - [ ] AI Diary section has detailed narrative (not placeholder)
 - [ ] Honest Feedback section has frank assessment (not placeholder)
+- [ ] Co-Creation Map shows collaboration patterns
+- [ ] Resonance Moments captures key "aha" decisions
+- [ ] Teaching Moments documents mutual learning
 - [ ] Session Summary is clear and concise
 - [ ] Timeline includes actual times and events
 - [ ] Technical Details are accurate
 - [ ] Lessons Learned has actionable insights
 - [ ] Next Steps are specific and achievable
 
-⚠️ **IMPORTANT**: A retrospective without AI Diary and Honest Feedback is incomplete and loses significant value for future reference.
+⚠️ **IMPORTANT**: A retrospective without AI Diary, Honest Feedback, and Co-Creation sections is incomplete and loses significant value for future reference.
 EOF
 ```
 
