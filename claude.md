@@ -280,11 +280,14 @@ SESSION_DATE=$(date +"%Y-%m-%d")
 END_TIME_UTC=$(date -u +"%H:%M")
 END_TIME_LOCAL=$(TZ='Asia/Bangkok' date +"%H:%M")
 
-# Create directory structure
-mkdir -p ψ-retrospectives
+# Create directory structure (YYYY-MM/DD/)
+YEAR_MONTH=$(date +"%Y-%m")
+DAY=$(date +"%d")
+mkdir -p "ψ-retrospectives/${YEAR_MONTH}/${DAY}"
 
-# Create retrospective file with auto-filled date/time
-cat > ψ-retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md << EOF
+# Create retrospective file with auto-filled date/time (HH.MM format)
+TIME_DOT=$(TZ='Asia/Bangkok' date +"%H.%M")
+cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << EOF
 # Session Retrospective
 
 **Session Date**: ${SESSION_DATE}
@@ -337,8 +340,9 @@ cat > ψ-retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md <<
 - Success 3
 
 ## What Could Improve
-- Area 1
-- Area 2
+[Session-specific issues - what went wrong THIS session, not future todos]
+- [Mistake or inefficiency during this session]
+- [Process that didn't work well today]
 
 ## Blockers & Resolutions
 - **Blocker**: Description
@@ -373,7 +377,9 @@ cat > ψ-retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md <<
 | | | |
 
 ## 🌱 Seeds Planted
-- [Ideas that emerged but saved for later]
+[FUTURE ideas that emerged - new features, tools, or possibilities to explore later]
+- [Idea for a new tool or feature]
+- [Pattern that could apply elsewhere]
 
 ## 📚 Teaching Moments
 - **You → Me**: [What I learned from you]
@@ -424,7 +430,7 @@ git add ψ-retrospectives/
 git commit -m "docs: Add session retrospective $(date +%Y-%m-%d)"
 
 # Comment on relevant issue/PR with actual path
-RETRO_PATH="ψ-retrospectives/$(date +%Y-%m-%d_%H-%M)_retrospective.md"
+RETRO_PATH="ψ-retrospectives/$(date +%Y-%m)/$(date +%d)/$(TZ='Asia/Bangkok' date +%H.%M)_retrospective.md"
 gh issue comment XXX --body "Session retrospective created: ${RETRO_PATH}"
 ```
 
