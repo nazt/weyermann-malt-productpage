@@ -391,10 +391,10 @@ Track alignment AND misalignment. **Actively look for gaps.**
 
 Legend: ✓=aligned, ⚠️=minor gap (self-corrected), ❌=needed clarification
 
-**ADVERSARIAL CHECK**: If all ✓, ask yourself:
-- Where did I make assumptions I didn't verify?
-- What did I almost misunderstand?
-- Where was I too trusting of my interpretation?
+**ADVERSARIAL CHECK**: If all ✓, answer ALL THREE (min 1 sentence each):
+1. **Unverified assumption**: "I assumed ___ without checking because ___"
+2. **Near-miss**: "I almost thought you meant ___ when you said '___'"
+3. **Over-confidence**: "I was too sure that ___ meant ___"
 
 Only write "No misalignments" if you genuinely found ZERO gaps after this check.
 
@@ -424,9 +424,9 @@ Only write "No misalignments" if you genuinely found ZERO gaps after this check.
 
 ## 🌱 Seeds Planted
 FUTURE ideas only. Categorize by ambition:
-- 🌱 **Incremental**: [Extends existing work]
-- 🌿 **Transformative**: [New capability]
-- 🌳 **Moonshot**: [Radical possibility]
+- 🌱 **Incremental**: [Idea] → **Trigger**: use when [condition]
+- 🌿 **Transformative**: [Idea] → **Trigger**: use when [condition]
+- 🌳 **Moonshot**: [Idea] → **Trigger**: use when [condition]
 
 Require at least one 🌿 or 🌳. If all incremental, ask: "What's the ambitious version?"
 
@@ -439,6 +439,8 @@ Each must include: WHAT learned + HOW discovered + WHY it matters
 
 Bad: "You → Me: Background subagents are useful"
 Good: "You → Me: 'Consult subagents for large analysis' — discovered when sequential reading was slow — matters because parallel = 3x faster"
+
+**Validation**: Each entry MUST have 3 parts (lesson — discovered — matters). No dashes = incomplete.
 
 ## Lessons Learned
 - **Pattern**: [Description] - [Why it matters]
@@ -464,6 +466,7 @@ Fill in blanks as PROOF (can't save with blanks):
 - [ ] **Co-Creation Map**: Row count = _____ (must be 5)
 - [ ] **Intent vs Interpretation**: Gaps found: ⚠️(_) ❌(_) — if 0, adversarial check: "_____"
 - [ ] **Seeds Planted**: 🌿(_) 🌳(_) — if 0, add ambitious version
+- [ ] **Template cleanup**: No instruction text like "Mark ✓" or "[placeholder]" in final doc
 
 ⚠️ **HARD STOP**: Can't fill blanks = retrospective incomplete. Fix first.
 EOF
