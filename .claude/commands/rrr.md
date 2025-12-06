@@ -88,6 +88,30 @@ Execute the `rrr` workflow from CLAUDE.md:
    |----------|--------------|------|
    | | | |
 
+   ## 💬 Communication Dynamics (REQUIRED)
+   [Reflect on what made collaboration work or struggle]
+
+   ### Clarity
+   | Direction | Clear? | Example |
+   |-----------|--------|---------|
+   | You → Me (instructions) | | |
+   | Me → You (explanations) | | |
+
+   ### Feedback Loop
+   - **Speed**: How quickly were misalignments caught? [Instant/Minutes/Late]
+   - **Recovery**: How smoothly did we correct course?
+   - **Pattern**: Any recurring miscommunication?
+
+   ### Trust & Initiative
+   - **Trust level**: Did you trust my output appropriately? [Too much/Right/Too little]
+   - **Proactivity**: Was I too proactive, too passive, or balanced?
+   - **Assumptions**: What did I assume that I should have asked about?
+
+   ### What Would Make Next Session Better?
+   - **You could**: [Specific action human could take]
+   - **I could**: [Specific action AI could take]
+   - **We could**: [Specific thing to try together]
+
    ## 🌱 Seeds Planted
    [FUTURE ideas that emerged - new features, tools, or possibilities to explore later]
    - [Idea for a new tool or feature]
@@ -114,4 +138,5 @@ Execute the `rrr` workflow from CLAUDE.md:
 ## Critical Requirements
 - **AI Diary**: MUST include detailed first-person narrative
 - **Honest Feedback**: MUST include frank assessment
+- **Communication Dynamics**: MUST reflect on human-AI collaboration quality
 - **Time Zone**: Use GMT+7 (Bangkok) as primary

@@ -376,6 +376,30 @@ cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << E
 |----------|--------------|------|
 | | | |
 
+## 💬 Communication Dynamics (REQUIRED)
+[Reflect on what made collaboration work or struggle]
+
+### Clarity
+| Direction | Clear? | Example |
+|-----------|--------|---------|
+| You → Me (instructions) | | |
+| Me → You (explanations) | | |
+
+### Feedback Loop
+- **Speed**: How quickly were misalignments caught? [Instant/Minutes/Late]
+- **Recovery**: How smoothly did we correct course?
+- **Pattern**: Any recurring miscommunication?
+
+### Trust & Initiative
+- **Trust level**: Did you trust my output appropriately? [Too much/Right/Too little]
+- **Proactivity**: Was I too proactive, too passive, or balanced?
+- **Assumptions**: What did I assume that I should have asked about?
+
+### What Would Make Next Session Better?
+- **You could**: [Specific action human could take]
+- **I could**: [Specific action AI could take]
+- **We could**: [Specific thing to try together]
+
 ## 🌱 Seeds Planted
 [FUTURE ideas that emerged - new features, tools, or possibilities to explore later]
 - [Idea for a new tool or feature]
@@ -405,6 +429,7 @@ cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << E
 **BEFORE SAVING, VERIFY ALL REQUIRED SECTIONS ARE COMPLETE:**
 - [ ] AI Diary section has detailed narrative (not placeholder)
 - [ ] Honest Feedback section has frank assessment (not placeholder)
+- [ ] Communication Dynamics reflects on collaboration quality
 - [ ] Co-Creation Map shows collaboration patterns
 - [ ] Resonance Moments captures key "aha" decisions
 - [ ] Teaching Moments documents mutual learning
