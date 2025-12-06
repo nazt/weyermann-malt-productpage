@@ -470,6 +470,12 @@ Closes #[issue-number]
 
 *(This section should be continuously updated with project-specific findings)*
 
+> **See also**: `learnings/` directory for distilled meta-summaries of "what we did vs what we wanted"
+
+### Key Learnings (2025-12-06)
+-   **001-force-push**: Safety rules are infrastructure, not guidelines - internalize them
+-   **002-golden-rule**: Distill complexity into memorable principles (complete, memorable, actionable)
+-   **003-upstream-first**: Create upstream issues instead of local patches
 
 ### Planning & Architecture Patterns (2025-08-26)
 -   **Pattern**: Use parallel agents for analyzing different aspects of complex systems
