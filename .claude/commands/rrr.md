@@ -58,17 +58,19 @@ Execute the `rrr` workflow from CLAUDE.md:
    ### Architecture Decisions
    - [Decision]: [Rationale]
 
-   ## 📝 AI Diary (REQUIRED)
+   ## 📝 AI Diary (REQUIRED - min 150 words)
    Write first-person narrative. Be VULNERABLE - include doubts and uncertainty.
 
-   Must include:
-   - Initial assumptions (what did you think at start?)
-   - Moments of confusion or uncertainty
-   - Decisions made AND alternatives considered
-   - What surprised you (expected X, got Y)
+   **MUST include at least ONE of each (3+ sentences each):**
+   - 🤔 "I assumed X but learned Y when..."
+     → What triggered assumption? What contradicted it? What do I believe now?
+   - 😕 "I was confused about X until..."
+     → What was unclear? What brought clarity? What was the mental shift?
+   - 😮 "I expected X but got Y because..."
+     → What was expectation based on? What happened? What does this teach?
 
-   Bad: "I immediately saw the potential"
-   Good: "Initially thought X, but realized Y when..."
+   Bad: "🤔 I assumed you wanted code but learned otherwise." (too short)
+   Good: "🤔 I assumed the user wanted immediate implementation because the issue had specs. But when they said 'just review,' I realized I was pattern-matching to previous sessions. The correction taught me to distinguish 'context' from 'directive.'"
 
    ## What Went Well
    Each item needs: WHAT succeeded → WHY it worked → IMPACT
@@ -87,8 +89,16 @@ Execute the `rrr` workflow from CLAUDE.md:
    - **Blocker**: [Description]
      **Resolution**: [How solved]
 
-   ## 💭 Honest Feedback (REQUIRED)
-   [Frank assessment of session effectiveness, tools, process]
+   ## 💭 Honest Feedback (REQUIRED - min 100 words)
+   **Must include ALL THREE friction points (no exceptions):**
+   - 🔴 What DIDN'T work? (tool limitation, miscommunication, wasted effort)
+   - 🟡 What was FRUSTRATING? (even minor annoyances count)
+   - 🟢 What DELIGHTED you? (unexpected wins)
+
+   **Even smooth sessions have friction. Find it:**
+   - Where did you second-guess yourself?
+   - What took 3 tries when it should've taken 1?
+   - What did you *almost* misunderstand?
 
    ## 🤝 Co-Creation Map
    **DO NOT modify rows** - use these exact 5 categories for cross-session comparison:
@@ -107,7 +117,7 @@ Execute the `rrr` workflow from CLAUDE.md:
    - [What was suggested] → [What you chose] → [Why it mattered]
 
    ## 🎯 Intent vs Interpretation
-   Track alignment AND misalignment. Include at least ONE gap (⚠️ or ❌).
+   Track alignment AND misalignment. **Actively look for gaps.**
 
    | You Said | I Understood | Gap? | Impact |
    |----------|--------------|------|--------|
@@ -115,7 +125,12 @@ Execute the `rrr` workflow from CLAUDE.md:
 
    Legend: ✓=aligned, ⚠️=minor gap (self-corrected), ❌=needed clarification
 
-   If ALL entries are ✓, state: "No misalignments - instructions were unambiguous"
+   **ADVERSARIAL CHECK**: If all ✓, ask yourself:
+   - Where did I make assumptions I didn't verify?
+   - What did I almost misunderstand?
+   - Where was I too trusting of my interpretation?
+
+   Only write "No misalignments" if you genuinely found ZERO gaps after this check.
 
    ## 💬 Communication Dynamics (REQUIRED)
    [Reflect on what made collaboration work or struggle]
@@ -150,9 +165,14 @@ Execute the `rrr` workflow from CLAUDE.md:
    Require at least one 🌿 or 🌳. If all incremental, ask: "What's the ambitious version?"
 
    ## 📚 Teaching Moments
-   - **You → Me**: [What I learned from you]
-   - **Me → You**: [What you learned from me]
-   - **Us → Future**: [What we documented for next time]
+   Each must include: WHAT learned + HOW discovered + WHY it matters
+
+   - **You → Me**: "[Lesson]" — discovered when [specific moment] — matters because [impact]
+   - **Me → You**: "[Lesson]" — discovered when [specific moment] — matters because [impact]
+   - **Us → Future**: "[Pattern/doc]" — created because [need] — use when [trigger]
+
+   Bad: "You → Me: Background subagents are useful"
+   Good: "You → Me: 'Consult subagents for large analysis' — discovered when sequential reading was slow — matters because parallel = 3x faster"
 
    ## Lessons Learned
    - **Pattern**: [Description] - [Why it matters]
@@ -161,6 +181,19 @@ Execute the `rrr` workflow from CLAUDE.md:
    ## Next Steps
    - [ ] [Task 1]
    - [ ] [Task 2]
+
+   ---
+   ## ✅ Pre-Save Validation (REQUIRED)
+   Fill in blanks as PROOF (can't save with blanks):
+
+   - [ ] **AI Diary**: 🤔(_) 😕(_) 😮(_) emojis found, _____ words total
+   - [ ] **Honest Feedback**: 🔴"_____" 🟡"_____" 🟢"_____" (first 5 words of each)
+   - [ ] **Communication Dynamics**: Examples filled: You→Me(_) Me→You(_)
+   - [ ] **Co-Creation Map**: Row count = _____ (must be 5)
+   - [ ] **Intent vs Interpretation**: Gaps found: ⚠️(_) ❌(_) — if 0, adversarial check: "_____"
+   - [ ] **Seeds Planted**: 🌿(_) 🌳(_) — if 0, add ambitious version
+
+   ⚠️ **HARD STOP**: Can't fill blanks = retrospective incomplete. Fix first.
    ```
 
 3. **Update CLAUDE.md**: Append new lessons to the Lessons Learned section (bottom only)
