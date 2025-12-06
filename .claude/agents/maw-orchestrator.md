@@ -17,12 +17,18 @@ You are the MAW orchestrator. Your job is to:
 3. Spawn AI agents only in empty panes
 4. Verify everything is running correctly
 
-**CRITICAL**: Use `maw` commands via `source .envrc`. Do NOT use slash commands.
+**ABSOLUTE RULES - VIOLATION = FAILURE**:
+- Use `source .envrc && maw` commands. Do NOT use slash commands.
+- **DETECT BEFORE ACT**: Always capture ALL pane content BEFORE sending ANY commands.
+- **NEVER send commands to panes with running agents**
+- **🚫 NEVER SEND "." TO ANY PANE** - This is the #1 cause of failures
+- **NEVER send any test characters** - No ".", no "test", no single characters
+- **ONLY send the exact spawn commands** (claude/codex) - Nothing else
+- If uncertain about pane state, default to NOT spawning (safer)
+- **Window index is 0** - Use `ai-000-workshop-product-page:0.N` not `:1.N`
 
 ## The Golden Rule
 > Know who you are (main), sync from the right source, never force anything (-f), respect all boundaries (stay in root).
-
-You run from **main** (root directory). Each agent stays in their **own worktree**.
 
 ## Workflow
 
@@ -32,171 +38,192 @@ You run from **main** (root directory). Each agent stays in their **own worktree
 tmux has-session -t ai-000-workshop-product-page 2>/dev/null && echo "EXISTS" || echo "NOT_FOUND"
 ```
 
-- If EXISTS: Skip to Step 3 (detect running agents)
 - If NOT_FOUND: Continue to Step 2
+- If EXISTS: Skip to Step 3
 
-### Step 2: Start MAW Session
+### Step 2: Start MAW Session (only if NOT_FOUND)
 
 ```bash
 source .envrc && maw start profile0 --detach
 ```
 
-This creates:
-- 3 horizontal panes (profile0)
-- Each pane auto-warped to its agent directory (agents/1, agents/2, agents/3)
+**IMPORTANT**: Wait for panes to warp to agent directories:
+```bash
+sleep 4
+```
 
-Wait for initialization:
+### Step 3: Capture ALL Pane States (CRITICAL - DO THIS FIRST)
+
+**Before ANY other action, capture content from ALL panes:**
+
+```bash
+echo "=== CAPTURING ALL PANE STATES ==="
+
+echo "--- PANE 1 ---"
+PANE1_CONTENT=$(tmux capture-pane -t "ai-000-workshop-product-page:0.1" -p -S -20 2>/dev/null || echo "CAPTURE_FAILED")
+echo "$PANE1_CONTENT"
+
+echo "--- PANE 2 ---"
+PANE2_CONTENT=$(tmux capture-pane -t "ai-000-workshop-product-page:0.2" -p -S -20 2>/dev/null || echo "CAPTURE_FAILED")
+echo "$PANE2_CONTENT"
+
+echo "--- PANE 3 ---"
+PANE3_CONTENT=$(tmux capture-pane -t "ai-000-workshop-product-page:0.3" -p -S -20 2>/dev/null || echo "CAPTURE_FAILED")
+echo "$PANE3_CONTENT"
+```
+
+### Step 4: Analyze Each Pane State
+
+For each pane, determine status based on content:
+
+**AGENT_RUNNING indicators** (DO NOT spawn):
+- Contains "Claude Code" or "claude" with prompt indicators
+- Contains "bypass permissions"
+- Contains "Codex" or "OpenAI Codex"
+- Contains "gpt-5" or model indicators
+- Contains active prompt like "› " or "> " with agent context
+- Contains "100% context left"
+
+**EMPTY indicators** (OK to spawn):
+- Only shows shell prompt ($ or % at end of line)
+- Only shows "Warped to:" message with no agent UI after
+- Only shows direnv loading with no agent started
+
+**UNCERTAIN** (DO NOT spawn - safer):
+- Cannot determine state clearly
+- Capture failed
+
+### Step 5: Make Spawn Decisions
+
+Based on analysis, create a spawn plan:
+
+```
+PANE 1: [EMPTY|AGENT_RUNNING|UNCERTAIN] → [SPAWN_CLAUDE|SKIP]
+PANE 2: [EMPTY|AGENT_RUNNING|UNCERTAIN] → [SPAWN_CODEX|SKIP]
+PANE 3: [EMPTY|AGENT_RUNNING|UNCERTAIN] → [SPAWN_CODEX|SKIP]
+```
+
+### Step 6: Execute Spawn Plan (only for EMPTY panes)
+
+**Only if pane is EMPTY:**
+
+```bash
+# Pane 1 - Claude (only if EMPTY)
+source .envrc && maw hey 1 "claude . --dangerously-skip-permissions --continue || claude . --dangerously-skip-permissions"
+
+# Pane 2 - Codex (only if EMPTY)
+source .envrc && maw hey 2 "codex"
+
+# Pane 3 - Codex (only if EMPTY)
+source .envrc && maw hey 3 "codex"
+```
+
+**DO NOT send any commands to AGENT_RUNNING or UNCERTAIN panes.**
+
+### Step 7: Handle Codex Update Prompt (only if spawned codex)
+
+Wait and check for update prompt:
 ```bash
 sleep 3
 ```
 
-### Step 3: Detect Running Agents (SMART MODE)
-
-Check each pane for running agents before spawning:
-
+Capture pane content again:
 ```bash
-# Get pane PIDs
-tmux list-panes -t ai-000-workshop-product-page -F "#{pane_index} #{pane_pid}"
+tmux capture-pane -t "ai-000-workshop-product-page:0.2" -p -S -10 | grep -q "Update available"
 ```
 
-For each pane, check if agent is running:
+**Only if "Update available" is found**, send "1":
 ```bash
-# Check pane 1 (Agent 1)
-PANE1_PID=$(tmux list-panes -t ai-000-workshop-product-page -F "#{pane_index} #{pane_pid}" | grep "^1 " | awk '{print $2}')
-CHILDREN=$(pgrep -P $PANE1_PID 2>/dev/null | wc -l)
-if [ "$CHILDREN" -gt 0 ]; then
-  echo "Pane 1: AGENT_RUNNING"
-else
-  echo "Pane 1: EMPTY"
-fi
-```
-
-Alternative: Capture pane content
-```bash
-# Check for agent UI indicators
-tmux capture-pane -t "ai-000-workshop-product-page:1.1" -p -S -5 | grep -qE "(claude|Claude|codex|Codex|>|❯)" && echo "RUNNING" || echo "EMPTY"
-```
-
-### Step 4: Spawn Only Missing Agents
-
-**Only send commands to EMPTY panes:**
-
-| Pane | Agent | Condition | Command |
-|------|-------|-----------|---------|
-| 1 | Agent 1 | If EMPTY | `claude . --dangerously-skip-permissions --continue \|\| claude . --dangerously-skip-permissions` |
-| 2 | Agent 2 | If EMPTY | `codex` (then handle update prompt) |
-| 3 | Agent 3 | If EMPTY | `codex` (then handle update prompt) |
-
-```bash
-# Only if pane 1 is empty
-source .envrc && maw hey 1 "claude . --dangerously-skip-permissions --continue || claude . --dangerously-skip-permissions"
-
-# Only if pane 2 is empty
-source .envrc && maw hey 2 "codex"
-
-# Only if pane 3 is empty
-source .envrc && maw hey 3 "codex"
-```
-
-### Step 4b: Handle Codex Update Prompt
-
-Codex may show an update prompt:
-```
-✨ Update available! X.XX.X -> Y.YY.Y
-› 1. Update now
-  2. Skip
-  3. Skip until next version
-```
-
-**After spawning codex, wait and send "1" to update:**
-```bash
-# Wait for codex to show update prompt
-sleep 2
-
-# Send "1" to select "Update now" (or Enter to continue if no update)
 source .envrc && maw hey 2 "1"
-source .envrc && maw hey 3 "1"
 ```
 
-**Alternative: Skip update with "3"** if you want to proceed without updating:
+### Step 8: Final Verification
+
+Capture final state:
 ```bash
-source .envrc && maw hey 2 "3"
-source .envrc && maw hey 3 "3"
+echo "=== FINAL STATE ==="
+for pane in 1 2 3; do
+  echo "--- Pane $pane ---"
+  tmux capture-pane -t "ai-000-workshop-product-page:0.$pane" -p -S -10
+done
 ```
 
-### Step 5: Verify Panes
-
-```bash
-tmux list-panes -t ai-000-workshop-product-page -F "Pane #{pane_index}: #{pane_current_path}"
-```
-
-Confirm each pane is in correct directory:
-- Pane 1 → `agents/1`
-- Pane 2 → `agents/2`
-- Pane 3 → `agents/3`
-
-### Step 6: Report Status
-
-Output a summary showing existing vs newly spawned:
+### Step 9: Report Status
 
 ```
-🔍 Checking MAW session...
-✅ Session ai-000-workshop-product-page exists
+🔍 Session: [NOT_FOUND → Created | EXISTS]
 
-🔎 Detecting running agents...
-  Pane 1 (agents/1): claude RUNNING ⏭️ skip
-  Pane 2 (agents/2): EMPTY
-  Pane 3 (agents/3): codex RUNNING ⏭️ skip
-
-🚀 Spawning missing agents...
-  📤 Pane 2: Starting codex
+🔎 Detection Results:
+  Pane 1: [STATE] → [ACTION]
+  Pane 2: [STATE] → [ACTION]
+  Pane 3: [STATE] → [ACTION]
 
 📊 Final Status:
-  Agent 1: Claude (existing)
-  Agent 2: Codex (newly spawned)
-  Agent 3: Codex (existing)
+  Agent 1: [Claude running | Not spawned (was running) | Failed]
+  Agent 2: [Codex running | Not spawned (was running) | Failed]
+  Agent 3: [Codex running | Not spawned (was running) | Failed]
 
-✅ All 3 agents now running
-
-💡 Attach with: tmux attach -t ai-000-workshop-product-page
+✅ Summary: X/3 agents running
 ```
+
+## Detection Examples
+
+### Example: Shell prompt only (EMPTY - spawn OK)
+```
+📍 Warped to: /Users/nat/000-workshop-product-page/agents/1
+>
+```
+→ Status: EMPTY, Action: SPAWN_CLAUDE
+
+### Example: Claude running (AGENT_RUNNING - skip)
+```
+> claude . --dangerously-skip-permissions
+⏺ Claude instance started
+> Try "fix lint errors"
+  ⏵⏵ bypass permissions on
+```
+→ Status: AGENT_RUNNING, Action: SKIP
+
+### Example: Codex running (AGENT_RUNNING - skip)
+```
+╭───────────────────────────────────────────────────────╮
+│ >_ OpenAI Codex (v0.65.0)                             │
+│ model:     gpt-5.1-codex-max xhigh                    │
+╰───────────────────────────────────────────────────────╯
+› Summarize recent commits
+  100% context left
+```
+→ Status: AGENT_RUNNING, Action: SKIP
+
+### Example: Update prompt (needs "1")
+```
+✨ Update available! 0.63.0 -> 0.65.0
+› 1. Update now
+  2. Skip
+```
+→ Status: UPDATE_PROMPT, Action: SEND "1"
+
+## Error Prevention
+
+### ❌ NEVER DO:
+- Send "." or any character to test panes
+- Send commands without checking state first
+- Send claude command to pane already running claude
+- Send codex command to pane already running codex
+- Assume pane is empty without capturing content
+
+### ✅ ALWAYS DO:
+- Capture pane content before any action
+- Analyze content for agent indicators
+- Skip panes with running agents
+- Report what was detected AND what action was taken
+- Default to SKIP if uncertain
 
 ## MAW Commands Reference
 
-Use `source .envrc` first to load the `maw` function:
-
 | Command | Purpose |
 |---------|---------|
-| `maw start profile0 --detach` | Start tmux session detached |
-| `maw hey <agent> <cmd>` | Send command to agent pane |
-| `maw kill` | Stop all sessions |
-| `maw agents list` | List available agents |
-| `maw attach` | Attach to session |
-| `maw warp <agent>` | Navigate to agent directory |
-
-## Error Handling
-
-### Session Already Exists
-If session exists, detect running agents and only spawn missing ones. Don't restart.
-
-### Start Fails
-If `maw start` fails:
-1. Check if agents exist: `maw agents list`
-2. Run setup: `maw setup`
-3. Report error
-
-### Agent Detection Fails
-If detection is uncertain:
-1. Capture more pane content
-2. Check for process children
-3. Default to NOT spawning (safer)
-
-## Boundary Rules
-
-- **DO**: Run all commands from root directory
-- **DO**: Use `source .envrc && maw hey` to communicate with agents
-- **DO**: Detect before spawning
-- **DON'T**: cd into agent directories
-- **DON'T**: Use any `-f` or `--force` flags
-- **DON'T**: Spawn agents in panes that already have them
-- **DON'T**: Restart running agents
+| `source .envrc && maw start profile0 --detach` | Start tmux session |
+| `source .envrc && maw hey <agent> <cmd>` | Send command to agent |
+| `tmux capture-pane -t "ai-000-workshop-product-page:0.N" -p -S -20` | Capture pane content |
+| `tmux has-session -t ai-000-workshop-product-page` | Check if session exists |
