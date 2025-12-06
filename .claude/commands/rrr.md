@@ -19,7 +19,7 @@ Execute the `rrr` workflow from CLAUDE.md:
    - Get current timestamp: `TZ='Asia/Bangkok' date +"%Y-%m-%d %H:%M"` (GMT+7)
 
 2. **Create Retrospective File**:
-   Create file at `retrospectives/YYYY-MM-DD_HH-MM_retrospective.md`
+   Create file at `ψ-retrospectives/YYYY-MM-DD_HH-MM_retrospective.md`
 
    Use this template (ALL sections required):
    ```markdown
@@ -80,7 +80,7 @@ Execute the `rrr` workflow from CLAUDE.md:
 
 3. **Update CLAUDE.md**: Append new lessons to the Lessons Learned section (bottom only)
 
-4. **Commit**: `git add retrospectives/ && git commit -m "docs: add session retrospective YYYY-MM-DD"`
+4. **Commit**: `git add ψ-retrospectives/ && git commit -m "docs: add session retrospective YYYY-MM-DD"`
 
 ## Critical Requirements
 - **AI Diary**: MUST include detailed first-person narrative

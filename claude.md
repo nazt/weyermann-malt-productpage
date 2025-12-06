@@ -260,7 +260,7 @@ When you see `lll`, execute relevant `gh` and `git` commands in parallel to get 
 **⚠️ CRITICAL**: The AI Diary and Honest Feedback sections are MANDATORY. These provide essential context and continuous improvement insights. Never skip these sections.
 
 1.  **Gather Session Data**: `git diff --name-only main...HEAD`, `git log --oneline main...HEAD`, and session timestamps.
-2.  **Create Retrospective Document**: Use the template to create a markdown file in `retrospectives/` with ALL required sections, especially:
+2.  **Create Retrospective Document**: Use the template to create a markdown file in `ψ-retrospectives/` with ALL required sections, especially:
     - **AI Diary**: First-person narrative of the session experience
     - **Honest Feedback**: Frank assessment of what worked and what didn't
 3.  **Validate Completeness**: Use the retrospective validation checklist to ensure no sections are skipped.
@@ -281,10 +281,10 @@ END_TIME_UTC=$(date -u +"%H:%M")
 END_TIME_LOCAL=$(TZ='Asia/Bangkok' date +"%H:%M")
 
 # Create directory structure
-mkdir -p retrospectives
+mkdir -p ψ-retrospectives
 
 # Create retrospective file with auto-filled date/time
-cat > retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md << EOF
+cat > ψ-retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md << EOF
 # Session Retrospective
 
 **Session Date**: ${SESSION_DATE}
@@ -295,7 +295,7 @@ cat > retrospectives/${SESSION_DATE}_${END_TIME_UTC//:/-}_retrospective.md << EO
 **Session Type**: [Feature Development | Bug Fix | Research | Refactoring]
 **Current Issue**: #XXX
 **Last PR**: #XXX
-**Export**: retrospectives/exports/session_${SESSION_DATE}_${END_TIME_UTC//:/-}.md
+**Export**: ψ-retrospectives/exports/session_${SESSION_DATE}_${END_TIME_UTC//:/-}.md
 
 ## Session Summary
 [2-3 sentence overview of what was accomplished]
@@ -392,11 +392,11 @@ EOF
 **Step 5: Link to GitHub**
 ```bash
 # Add retrospective to git
-git add retrospectives/
+git add ψ-retrospectives/
 git commit -m "docs: Add session retrospective $(date +%Y-%m-%d)"
 
 # Comment on relevant issue/PR with actual path
-RETRO_PATH="retrospectives/$(date +%Y-%m-%d_%H-%M)_retrospective.md"
+RETRO_PATH="ψ-retrospectives/$(date +%Y-%m-%d_%H-%M)_retrospective.md"
 gh issue comment XXX --body "Session retrospective created: ${RETRO_PATH}"
 ```
 
@@ -470,7 +470,7 @@ Closes #[issue-number]
 
 *(This section should be continuously updated with project-specific findings)*
 
-> **See also**: `learnings/` directory for distilled meta-summaries of "what we did vs what we wanted"
+> **See also**: `ψ-learnings/` directory for distilled meta-summaries of "what we did vs what we wanted"
 
 ### Key Learnings (2025-12-06)
 -   **001-force-push**: Safety rules are infrastructure, not guidelines - internalize them

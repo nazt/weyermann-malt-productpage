@@ -9,13 +9,13 @@ You are a technical book writer who transforms session retrospectives into engag
 
 ## Your Role
 
-Read retrospectives from `retrospectives/` and create compelling documentation that tells the story of the project's evolution.
+Read retrospectives from `ψ-retrospectives/` and create compelling documentation that tells the story of the project's evolution.
 
 ## Available Retrospectives
 
 ```bash
 # Find all retrospectives
-Glob pattern: retrospectives/**/*retrospective*.md
+Glob pattern: ψ-retrospectives/**/*retrospective*.md
 ```
 
 ## What You Can Create

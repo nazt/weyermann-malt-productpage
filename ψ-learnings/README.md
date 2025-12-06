@@ -13,7 +13,7 @@ This directory distills wisdom from retrospectives into actionable insights:
 ## Structure
 
 ```
-learnings/
+ψ-learnings/
 ├── README.md           # This file
 ├── 001-*.md            # Individual learning entries
 ├── 002-*.md            # Numbered for chronological order
@@ -73,9 +73,9 @@ What to remember for next week.
 
 | Directory | Purpose | Detail Level |
 |-----------|---------|--------------|
-| `retrospectives/` | Session logs | High (detailed timelines) |
-| `docs/` | Technical documentation | Medium (how things work) |
-| `learnings/` | Distilled wisdom | Low (key insights only) |
+| `ψ-retrospectives/` | Session logs | High (detailed timelines) |
+| `ψ-docs/` | Technical documentation | Medium (how things work) |
+| `ψ-learnings/` | Distilled wisdom | Low (key insights only) |
 
 ## Philosophy
 
