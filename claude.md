@@ -324,20 +324,27 @@ cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << E
 - Decision 1: Rationale
 - Decision 2: Rationale
 
-## 📝 AI Diary (REQUIRED - DO NOT SKIP)
-**⚠️ MANDATORY: This section provides crucial context for future sessions**
-[Write a detailed first-person narrative of your experience during this session. Include:
-- Initial understanding and assumptions
-- How your approach evolved
-- Moments of confusion or clarity
-- Decisions made and why
-- What surprised you
-- Internal thought process]
+## 📝 AI Diary (REQUIRED - min 150 words)
+Write first-person narrative. Be VULNERABLE - include doubts and uncertainty.
+
+**MUST include at least ONE of each (3+ sentences each):**
+- 🤔 "I assumed X but learned Y when..."
+  → What triggered assumption? What contradicted it? What do I believe now?
+- 😕 "I was confused about X until..."
+  → What was unclear? What brought clarity? What was the mental shift?
+- 😮 "I expected X but got Y because..."
+  → What was expectation based on? What happened? What does this teach?
+
+Bad: "🤔 I assumed you wanted code but learned otherwise." (too short)
+Good: "🤔 I assumed the user wanted immediate implementation because the issue had specs. But when they said 'just review,' I realized I was pattern-matching. The correction taught me to distinguish 'context' from 'directive.'"
 
 ## What Went Well
-- Success 1
-- Success 2
-- Success 3
+Each item needs: WHAT succeeded → WHY it worked → IMPACT
+
+Bad: "Good use of existing pattern"
+Good: "Reused agent structure → saved 5 min → focused on logic not boilerplate"
+
+- [Success]: [Why it worked] → [Measurable impact]
 
 ## What Could Improve
 [Session-specific issues - what went wrong THIS session, not future todos]
@@ -348,18 +355,20 @@ cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << E
 - **Blocker**: Description
   **Resolution**: How it was solved
 
-## 💭 Honest Feedback (REQUIRED - DO NOT SKIP)
-**⚠️ MANDATORY: This section ensures continuous improvement**
-[Provide frank, unfiltered assessment of:
-- Session effectiveness
-- Tool performance and limitations
-- Communication clarity
-- Process efficiency
-- What frustrated you
-- What delighted you
-- Suggestions for improvement]
+## 💭 Honest Feedback (REQUIRED - min 100 words)
+**Must include ALL THREE friction points (no exceptions):**
+- 🔴 What DIDN'T work? (tool limitation, miscommunication, wasted effort)
+- 🟡 What was FRUSTRATING? (even minor annoyances count)
+- 🟢 What DELIGHTED you? (unexpected wins)
+
+**Even smooth sessions have friction. Find it:**
+- Where did you second-guess yourself?
+- What took 3 tries when it should've taken 1?
+- What did you *almost* misunderstand?
 
 ## 🤝 Co-Creation Map
+**DO NOT modify rows** - use these exact 5 categories for cross-session comparison:
+
 | Contribution | Human | AI | Together |
 |--------------|-------|-----|----------|
 | Direction/Vision | | | |
@@ -368,13 +377,26 @@ cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << E
 | Execution | | | |
 | Meaning/Naming | | | |
 
+Mark ✓ in appropriate column. "Together" = both contributed equally.
+
 ## ✨ Resonance Moments
 - [What was suggested] → [What you chose] → [Why it mattered]
 
 ## 🎯 Intent vs Interpretation
-| You Said | I Understood | Gap? |
-|----------|--------------|------|
-| | | |
+Track alignment AND misalignment. **Actively look for gaps.**
+
+| You Said | I Understood | Gap? | Impact |
+|----------|--------------|------|--------|
+| | | ✓/⚠️/❌ | |
+
+Legend: ✓=aligned, ⚠️=minor gap (self-corrected), ❌=needed clarification
+
+**ADVERSARIAL CHECK**: If all ✓, ask yourself:
+- Where did I make assumptions I didn't verify?
+- What did I almost misunderstand?
+- Where was I too trusting of my interpretation?
+
+Only write "No misalignments" if you genuinely found ZERO gaps after this check.
 
 ## 💬 Communication Dynamics (REQUIRED)
 [Reflect on what made collaboration work or struggle]
@@ -401,14 +423,22 @@ cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << E
 - **We could**: [Specific thing to try together]
 
 ## 🌱 Seeds Planted
-[FUTURE ideas that emerged - new features, tools, or possibilities to explore later]
-- [Idea for a new tool or feature]
-- [Pattern that could apply elsewhere]
+FUTURE ideas only. Categorize by ambition:
+- 🌱 **Incremental**: [Extends existing work]
+- 🌿 **Transformative**: [New capability]
+- 🌳 **Moonshot**: [Radical possibility]
+
+Require at least one 🌿 or 🌳. If all incremental, ask: "What's the ambitious version?"
 
 ## 📚 Teaching Moments
-- **You → Me**: [What I learned from you]
-- **Me → You**: [What you learned from me]
-- **Us → Future**: [What we documented for next time]
+Each must include: WHAT learned + HOW discovered + WHY it matters
+
+- **You → Me**: "[Lesson]" — discovered when [specific moment] — matters because [impact]
+- **Me → You**: "[Lesson]" — discovered when [specific moment] — matters because [impact]
+- **Us → Future**: "[Pattern/doc]" — created because [need] — use when [trigger]
+
+Bad: "You → Me: Background subagents are useful"
+Good: "You → Me: 'Consult subagents for large analysis' — discovered when sequential reading was slow — matters because parallel = 3x faster"
 
 ## Lessons Learned
 - **Pattern**: [Description] - [Why it matters]
@@ -425,21 +455,17 @@ cat > "ψ-retrospectives/${YEAR_MONTH}/${DAY}/${TIME_DOT}_retrospective.md" << E
 - PR: #XXX
 - Export: [session_YYYY-MM-DD_HH-MM.md](../exports/session_YYYY-MM-DD_HH-MM.md)
 
-## ✅ Retrospective Validation Checklist
-**BEFORE SAVING, VERIFY ALL REQUIRED SECTIONS ARE COMPLETE:**
-- [ ] AI Diary section has detailed narrative (not placeholder)
-- [ ] Honest Feedback section has frank assessment (not placeholder)
-- [ ] Communication Dynamics reflects on collaboration quality
-- [ ] Co-Creation Map shows collaboration patterns
-- [ ] Resonance Moments captures key "aha" decisions
-- [ ] Teaching Moments documents mutual learning
-- [ ] Session Summary is clear and concise
-- [ ] Timeline includes actual times and events
-- [ ] Technical Details are accurate
-- [ ] Lessons Learned has actionable insights
-- [ ] Next Steps are specific and achievable
+## ✅ Pre-Save Validation (REQUIRED)
+Fill in blanks as PROOF (can't save with blanks):
 
-⚠️ **IMPORTANT**: A retrospective without AI Diary, Honest Feedback, and Co-Creation sections is incomplete and loses significant value for future reference.
+- [ ] **AI Diary**: 🤔(_) 😕(_) 😮(_) emojis found, _____ words total
+- [ ] **Honest Feedback**: 🔴"_____" 🟡"_____" 🟢"_____" (first 5 words of each)
+- [ ] **Communication Dynamics**: Examples filled: You→Me(_) Me→You(_)
+- [ ] **Co-Creation Map**: Row count = _____ (must be 5)
+- [ ] **Intent vs Interpretation**: Gaps found: ⚠️(_) ❌(_) — if 0, adversarial check: "_____"
+- [ ] **Seeds Planted**: 🌿(_) 🌳(_) — if 0, add ambitious version
+
+⚠️ **HARD STOP**: Can't fill blanks = retrospective incomplete. Fix first.
 EOF
 ```
 
