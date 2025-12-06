@@ -43,21 +43,40 @@ Execute the `rrr` workflow from CLAUDE.md:
    ## Technical Details
 
    ### Files Modified
-   [List files from git diff]
+   [List files with line counts: `git diff --stat`]
 
    ### Key Code Changes
-   - [Change 1]
-   - [Change 2]
+   For each significant change, show WHAT and WHY:
+   - **[file.ext]** (+X/-Y): [What changed] → [Why]
+
+   Include code snippet for major changes:
+   ```diff
+   + [new code]
+   - [old code]
+   ```
 
    ### Architecture Decisions
    - [Decision]: [Rationale]
 
    ## 📝 AI Diary (REQUIRED)
-   [First-person narrative of the session experience - thoughts, decisions, surprises]
+   Write first-person narrative. Be VULNERABLE - include doubts and uncertainty.
+
+   Must include:
+   - Initial assumptions (what did you think at start?)
+   - Moments of confusion or uncertainty
+   - Decisions made AND alternatives considered
+   - What surprised you (expected X, got Y)
+
+   Bad: "I immediately saw the potential"
+   Good: "Initially thought X, but realized Y when..."
 
    ## What Went Well
-   - [Success 1]
-   - [Success 2]
+   Each item needs: WHAT succeeded → WHY it worked → IMPACT
+
+   Bad: "Good use of existing pattern"
+   Good: "Reused agent structure → saved 5 min → focused on logic not boilerplate"
+
+   - [Success]: [Why it worked] → [Measurable impact]
 
    ## What Could Improve
    [Session-specific issues - what went wrong THIS session, not future todos]
@@ -72,6 +91,8 @@ Execute the `rrr` workflow from CLAUDE.md:
    [Frank assessment of session effectiveness, tools, process]
 
    ## 🤝 Co-Creation Map
+   **DO NOT modify rows** - use these exact 5 categories for cross-session comparison:
+
    | Contribution | Human | AI | Together |
    |--------------|-------|-----|----------|
    | Direction/Vision | | | |
@@ -80,13 +101,21 @@ Execute the `rrr` workflow from CLAUDE.md:
    | Execution | | | |
    | Meaning/Naming | | | |
 
+   Mark ✓ in appropriate column. "Together" = both contributed equally.
+
    ## ✨ Resonance Moments
    - [What was suggested] → [What you chose] → [Why it mattered]
 
    ## 🎯 Intent vs Interpretation
-   | You Said | I Understood | Gap? |
-   |----------|--------------|------|
-   | | | |
+   Track alignment AND misalignment. Include at least ONE gap (⚠️ or ❌).
+
+   | You Said | I Understood | Gap? | Impact |
+   |----------|--------------|------|--------|
+   | | | ✓/⚠️/❌ | |
+
+   Legend: ✓=aligned, ⚠️=minor gap (self-corrected), ❌=needed clarification
+
+   If ALL entries are ✓, state: "No misalignments - instructions were unambiguous"
 
    ## 💬 Communication Dynamics (REQUIRED)
    [Reflect on what made collaboration work or struggle]
@@ -113,9 +142,12 @@ Execute the `rrr` workflow from CLAUDE.md:
    - **We could**: [Specific thing to try together]
 
    ## 🌱 Seeds Planted
-   [FUTURE ideas that emerged - new features, tools, or possibilities to explore later]
-   - [Idea for a new tool or feature]
-   - [Pattern that could apply elsewhere]
+   FUTURE ideas only. Categorize by ambition:
+   - 🌱 **Incremental**: [Extends existing work]
+   - 🌿 **Transformative**: [New capability]
+   - 🌳 **Moonshot**: [Radical possibility]
+
+   Require at least one 🌿 or 🌳. If all incremental, ask: "What's the ambitious version?"
 
    ## 📚 Teaching Moments
    - **You → Me**: [What I learned from you]
