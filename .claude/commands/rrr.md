@@ -69,6 +69,31 @@ Execute the `rrr` workflow from CLAUDE.md:
    ## 💭 Honest Feedback (REQUIRED)
    [Frank assessment of session effectiveness, tools, process]
 
+   ## 🤝 Co-Creation Map
+   | Contribution | Human | AI | Together |
+   |--------------|-------|-----|----------|
+   | Direction/Vision | | | |
+   | Options/Alternatives | | | |
+   | Final Decision | | | |
+   | Execution | | | |
+   | Meaning/Naming | | | |
+
+   ## ✨ Resonance Moments
+   - [What was suggested] → [What you chose] → [Why it mattered]
+
+   ## 🎯 Intent vs Interpretation
+   | You Said | I Understood | Gap? |
+   |----------|--------------|------|
+   | | | |
+
+   ## 🌱 Seeds Planted
+   - [Ideas that emerged but saved for later]
+
+   ## 📚 Teaching Moments
+   - **You → Me**: [What I learned from you]
+   - **Me → You**: [What you learned from me]
+   - **Us → Future**: [What we documented for next time]
+
    ## Lessons Learned
    - **Pattern**: [Description] - [Why it matters]
    - **Discovery**: [What learned] - [How to apply]
