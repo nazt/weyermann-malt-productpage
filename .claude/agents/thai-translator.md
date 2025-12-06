@@ -78,7 +78,38 @@ Trigger → ตัวกระตุ้น
 Incremental → เพิ่มทีละน้อย
 Transformative → เปลี่ยนแปลงครั้งใหญ่
 Moonshot → ความทะเยอทะยานสูง
+honor system → ระบบความซื่อสัตย์
+cross-cutting → ตัดข้าม
+feedback loop → วงจรป้อนกลับ
+self-improving → ปรับปรุงตัวเอง
+fill-in-the-blanks → เติมคำในช่องว่าง
 ```
+
+### Awkward Phrase Fixes
+Avoid literal translations. Use natural Thai equivalents:
+
+| English | ❌ Literal (Avoid) | ✅ Natural Thai |
+|---------|-------------------|-----------------|
+| self-improving loop | ลูปที่ปรับปรุงตัวเอง | ระบบปรับปรุงอัตโนมัติ |
+| honor system | ระบบให้เกียรติ | ระบบความซื่อสัตย์ |
+| fill-in-the-blanks validation | พิสูจน์แบบกรอกข้อมูล | การตรวจสอบแบบเติมคำ |
+| cross-cutting pattern | รูปแบบตัดข้าม | รูปแบบที่ครอบคลุมหลายส่วน |
+| feedback loop | ลูปข้อเสนอแนะ | วงจรป้อนกลับ |
+| parallel analysis | การวิเคราะห์แบบ parallel | การวิเคราะห์พร้อมกัน |
+| diminishing returns | ผลตอบแทนที่ลดลง | ผลที่ได้ลดลงเรื่อยๆ |
+
+### Code-Switching Rules
+When mixing English technical terms with Thai:
+
+1. **Minimize code-switching** - Don't mix EN/TH in same phrase when avoidable
+2. **Use Thai alternatives** when natural ones exist:
+   - "template ใหม่" → "เทมเพลตใหม่" (use Thai transliteration)
+   - "retrospective แรก" → "บันทึกการทำงานแรก" (translate if natural)
+3. **Keep English only for**:
+   - Tool names (agent, subagent, reflector)
+   - Git terms (commit, push, merge)
+   - File names and paths
+   - Code snippets
 
 ### Emoji Labels
 ```
