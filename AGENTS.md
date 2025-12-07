@@ -155,33 +155,27 @@ Summarize current work context and save to contributions/context.md
 
 ## Sync Rules (IMPORTANT)
 
-### How Sync Works
-1. **Main commits** → changes go to `main` branch
-2. **Push to origin** → `git push origin main`
-3. **Agents merge** → each agent runs `git merge origin/main`
+### Use `maw sync` - NOT manual git commands
 
-### Before Merging
-Agents MUST commit their work first:
+**From Main Agent:**
 ```bash
-git add -A
-git commit -m "feat: Agent N work"
-git fetch origin
-git merge origin/main --no-edit
+maw sync              # Git-based sync (commits, pushes, broadcasts)
+maw sync --files      # Quick copy AGENTS.md, CLAUDE.md to all worktrees
 ```
 
-### Conflict Resolution
-If conflicts occur, keep agent's version:
+**From Agent Worktree:**
 ```bash
-git checkout --theirs <conflicting-file>
-git add <conflicting-file>
-git commit -m "Merge main, keep agent version"
+maw sync              # Merges main into current agent branch
 ```
 
-### Quick Sync Command
-From main agent:
-```bash
-maw hey all "git add -A && git commit -m 'wip' && git fetch origin && git merge origin/main --no-edit"
-```
+### Sync Flow
+1. Main: `maw sync` → commits, pushes, tells agents to sync
+2. Agents: receive sync message → merge origin/main automatically
+
+### Rules
+- Always commit your work before sync
+- Use `maw sync`, not raw git commands
+- See `.agents/scripts/sync.sh` for implementation
 
 ## Files to Read
 
