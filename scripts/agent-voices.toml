@@ -12,7 +12,7 @@ default = "Samantha"     # Fallback
 
 [rate]
 # Speech rate in words per minute (default ~175, faster = 220+)
-main = 195           # Samantha slower
+main = 190           # Samantha slower
 agent_1 = 220
 agent_2 = 220
 agent_3 = 220
