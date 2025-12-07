@@ -109,6 +109,50 @@ git push origin $(git branch --show-current)
 gh pr create --base main
 ```
 
+## Short Codes
+
+When you receive these short codes, execute the corresponding action:
+
+### `rrr` - Retrospective
+Create a session retrospective in `ψ-retrospectives/YYYY-MM/DD/`:
+```markdown
+# Session Retrospective - Agent {N}
+
+**Date**: YYYY-MM-DD
+**Agent**: Agent {N} (Claude/Codex)
+
+## Session Summary
+[What you did today - 2-3 sentences]
+
+## Technical Details
+- Files created/modified
+- Commands executed
+- Key decisions made
+
+## What Went Well
+- [Success 1]
+- [Success 2]
+
+## What Could Improve
+- [Challenge 1]
+- [Challenge 2]
+
+## Lessons Learned
+- [Key takeaway 1]
+- [Key takeaway 2]
+```
+
+### `lll` - List Status
+Run and report:
+```bash
+git status --short
+git log --oneline -5
+ls contributions/
+```
+
+### `ccc` - Context
+Summarize current work context and save to contributions/context.md
+
 ## Files to Read
 
 - `CLAUDE.md` - Full project guidelines
