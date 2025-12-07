@@ -153,6 +153,36 @@ ls contributions/
 ### `ccc` - Context
 Summarize current work context and save to contributions/context.md
 
+## Sync Rules (IMPORTANT)
+
+### How Sync Works
+1. **Main commits** → changes go to `main` branch
+2. **Push to origin** → `git push origin main`
+3. **Agents merge** → each agent runs `git merge origin/main`
+
+### Before Merging
+Agents MUST commit their work first:
+```bash
+git add -A
+git commit -m "feat: Agent N work"
+git fetch origin
+git merge origin/main --no-edit
+```
+
+### Conflict Resolution
+If conflicts occur, keep agent's version:
+```bash
+git checkout --theirs <conflicting-file>
+git add <conflicting-file>
+git commit -m "Merge main, keep agent version"
+```
+
+### Quick Sync Command
+From main agent:
+```bash
+maw hey all "git add -A && git commit -m 'wip' && git fetch origin && git merge origin/main --no-edit"
+```
+
 ## Files to Read
 
 - `CLAUDE.md` - Full project guidelines
