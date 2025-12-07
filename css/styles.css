@@ -2,8 +2,15 @@
 
 /* CSS Custom Properties */
 :root {
+  /* Weyermann Brand Colors */
+  --weyermann-yellow: #F5C400;
+  --weyermann-red: #c41010;
+
+  /* Primary Color Scheme */
   --primary-color: #c41010;
   --secondary-color: #1a1a1a;
+  --accent-yellow: #F5C400;
+  --warning-bg: #FFF4CC;
   --light-bg: #f8f8f8;
   --border-color: #c0c0c0;
   --text-dark: #000000;
