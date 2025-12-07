@@ -107,9 +107,18 @@ A brief, high-level description of the project's purpose and goals.
 -   Never use `git checkout -f`.
 -   Never use `git clean -f`.
 -   Always use safe git operations that preserve history.
+-   **⚠️ NEVER PUSH DIRECTLY TO MAIN** - Always create a feature branch and PR
 -   **⚠️ NEVER MERGE PULL REQUESTS WITHOUT EXPLICIT USER PERMISSION**
 -   **Never use `gh pr merge` unless explicitly instructed by the user**
 -   **Always wait for user review and approval before any merge**
+
+### PR Workflow (Required)
+1. Create feature branch: `git checkout -b feat/description`
+2. Make changes and commit
+3. Push branch: `git push -u origin feat/description`
+4. Create PR: `gh pr create`
+5. **WAIT** for user to review and approve
+6. User merges when ready
 
 ### Multi-Agent Worktree Safety
 -   **NEVER use `git reset --hard` on agent worktrees**
