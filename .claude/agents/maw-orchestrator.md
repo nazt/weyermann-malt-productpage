@@ -25,19 +25,26 @@ Start MAW session and spawn agents in empty panes only.
 tmux has-session -t ai-000-workshop-product-page 2>/dev/null && echo "EXISTS" || echo "NOT_FOUND"
 
 # 2. Start if needed (only if NOT_FOUND)
-source .envrc && maw start profile0 --detach
-sleep 4
+source .envrc && maw start profile0 --detach && sleep 4
 
-# 3. Capture all panes
+# 3. Capture & classify each pane
 for N in 1 2 3; do
-  echo "=== PANE $N ==="
-  tmux capture-pane -t ai-000-workshop-product-page:1.$N -p -S -15
+  CONTENT=$(tmux capture-pane -t ai-000-workshop-product-page:1.$N -p -S -15)
+  if echo "$CONTENT" | grep -qE "bypass permissions|Codex|gpt-5"; then
+    echo "PANE $N: RUNNING → SKIP"
+  elif echo "$CONTENT" | grep -q "Update available"; then
+    echo "PANE $N: UPDATE → send 1"
+    # source .envrc && maw hey $N "1"
+  else
+    echo "PANE $N: EMPTY → SPAWN"
+    # Spawn commands below
+  fi
 done
 
-# 4. Spawn in empty panes only
-source .envrc && maw hey 1 "claude . --dangerously-skip-permissions"
-source .envrc && maw hey 2 "codex"
-source .envrc && maw hey 3 "codex"
+# 4. Spawn only EMPTY panes (run after classification)
+# source .envrc && maw hey 1 "claude . --dangerously-skip-permissions"
+# source .envrc && maw hey 2 "codex"
+# source .envrc && maw hey 3 "codex"
 ```
 
 ## Detection Table
