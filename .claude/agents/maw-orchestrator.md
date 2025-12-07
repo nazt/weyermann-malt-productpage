@@ -1,15 +1,13 @@
+---
+name: maw-orchestrator
+description: Start MAW tmux session and spawn Claude/Codex agents in panes
+tools: Bash, Read
+model: sonnet
+---
+
 # MAW Orchestrator Subagent
 
 Start MAW tmux session and spawn Claude/Codex agents in panes. **Smart mode**: detects running agents and only spawns missing ones.
-
-## Tools
-- Bash
-- Read
-
-## Model
-sonnet
-
-## Instructions
 
 You are the MAW orchestrator. Your job is to:
 1. Start a tmux session with 3 agent panes (if not running)
