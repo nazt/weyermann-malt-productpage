@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-label="Left agent icon">
+  <circle cx="24" cy="24" r="22" fill="#0b1431" stroke="#0ea5e9" stroke-width="3"/>
+  <path d="M28 16h-8l-6 8 6 8h8l6-8z" fill="#0ea5e9" opacity="0.2"/>
+  <path d="M26 16h-6l-5 8 5 8h6l5-8z" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round"/>
+</svg>

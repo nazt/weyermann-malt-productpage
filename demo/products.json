@@ -1,0 +1,160 @@
+{
+  "company": "Weyermann Specialty Malts",
+  "subtitle": "Brewery & Distillery Products",
+  "currency": "THB",
+  "exchange_note": "Price will be changed if the exchange rate is above 40 THB/EURO",
+  "price_valid": "01 Jan 2025 to 31 Mar 2025",
+  "categories": [
+    {
+      "name": "Brew Malts",
+      "products": [
+        { "name": "Pilsner Malt", "price_5kg": null, "price_25kg": 1738.75 },
+        { "name": "Extra Pale Premium Pilsner Malt", "price_5kg": 481.50, "price_25kg": 2006.25 },
+        { "name": "Pale Ale Malt", "price_5kg": null, "price_25kg": 1872.50 },
+        { "name": "Vienna Malt", "price_5kg": 430.14, "price_25kg": 1792.25 },
+        { "name": "Munich Malt Type 1", "price_5kg": 436.56, "price_25kg": 1819.00 },
+        { "name": "Munich Malt Type 2", "price_5kg": 449.40, "price_25kg": 1872.50 }
+      ]
+    },
+    {
+      "name": "Smoked Malts",
+      "products": [
+        { "name": "Oak Smoked Wheat Malt", "price_5kg": 590.64, "price_25kg": 2461.00 },
+        { "name": "Beech Smoked Barley Malt", "price_5kg": 584.22, "price_25kg": 2434.25 }
+      ]
+    },
+    {
+      "name": "Specialty Malts",
+      "products": [
+        { "name": "Acidulated Malt", "price_5kg": 674.10, "price_25kg": 2808.75 },
+        { "name": "Weyermann Brewing Malt Type Cologne", "price_5kg": 449.40, "price_25kg": 1872.50 },
+        { "name": "Melanoidin Malt", "price_5kg": 481.50, "price_25kg": 2006.25 }
+      ]
+    },
+    {
+      "name": "Wheat Malts",
+      "products": [
+        { "name": "Wheat Malt pale", "price_5kg": null, "price_25kg": 1738.75 },
+        { "name": "Wheat Malt dark", "price_5kg": 462.24, "price_25kg": 1926.00 },
+        { "name": "CARAWHEAT", "price_5kg": 609.90, "price_25kg": 2541.25 },
+        { "name": "Chocolate Wheat Malt", "price_5kg": 545.70, "price_25kg": 2273.75 }
+      ]
+    },
+    {
+      "name": "Caramel Malts",
+      "products": [
+        { "name": "CARAPILS", "price_5kg": 513.60, "price_25kg": 2140.00 },
+        { "name": "CARAHELL", "price_5kg": 513.60, "price_25kg": 2140.00 },
+        { "name": "CARABELGE", "price_5kg": 532.86, "price_25kg": 2220.25 },
+        { "name": "CARARED", "price_5kg": 532.86, "price_25kg": 2220.25 },
+        { "name": "CARAAMBER", "price_5kg": 513.60, "price_25kg": 2140.00 },
+        { "name": "CARAMUNICH Type 1", "price_5kg": 481.50, "price_25kg": 2006.25 },
+        { "name": "CARAMUNICH Type 2", "price_5kg": 481.50, "price_25kg": 2006.25 },
+        { "name": "CARAMUNICH Type 3", "price_5kg": 513.60, "price_25kg": 2140.00 },
+        { "name": "CARAWHEAT", "price_5kg": 609.90, "price_25kg": 2541.25 },
+        { "name": "CARARYE", "price_5kg": 642.00, "price_25kg": 2675.00 },
+        { "name": "CARABOHEMIAN", "price_5kg": 577.80, "price_25kg": 2407.50 },
+        { "name": "CARAAROMA", "price_5kg": 526.44, "price_25kg": 2193.50 }
+      ]
+    },
+    {
+      "name": "Terroir and Heirloom Malts",
+      "products": [
+        { "name": "Eraclea Pilsner Malt", "price_5kg": 481.50, "price_25kg": 2006.25 },
+        { "name": "Barke Pilsner Malt", "price_5kg": 481.50, "price_25kg": 2006.25 },
+        { "name": "Barke Vienna Malt", "price_5kg": 494.34, "price_25kg": 2059.75 },
+        { "name": "Barke Munich Malt", "price_5kg": 494.34, "price_25kg": 2059.75 },
+        { "name": "Isaria 1924", "price_5kg": 513.60, "price_25kg": 2140.00 },
+        { "name": "Bohemian Pilsner Malt", "price_5kg": 442.98, "price_25kg": 1845.75 },
+        { "name": "Floor-Malted Bohemian Pilsner Malt", "price_5kg": 577.80, "price_25kg": 2407.50 },
+        { "name": "Floor-Malted Bohemian Dark Malt", "price_5kg": 616.32, "price_25kg": 2568.00 },
+        { "name": "CARABOHEMIAN", "price_5kg": 577.80, "price_25kg": 2407.50 }
+      ]
+    },
+    {
+      "name": "Belgian Type Malts",
+      "products": [
+        { "name": "CARABELGE", "price_5kg": 532.86, "price_25kg": 2220.25 },
+        { "name": "Abbey Malt", "price_5kg": 462.24, "price_25kg": 1926.00 },
+        { "name": "SPECIAL W", "price_5kg": 609.90, "price_25kg": 2541.25 }
+      ]
+    },
+    {
+      "name": "Chocolate Roasted Malts",
+      "products": [
+        { "name": "CARAFA Type 1", "price_5kg": 532.86, "price_25kg": 2220.25 },
+        { "name": "CARAFA Type 2", "price_5kg": 532.86, "price_25kg": 2220.25 },
+        { "name": "CARAFA Type 3", "price_5kg": 564.96, "price_25kg": 2354.00 },
+        { "name": "CARAFA SPECIAL Type 1", "price_5kg": 577.80, "price_25kg": 2407.50 },
+        { "name": "CARAFA SPECIAL Type 2", "price_5kg": 597.06, "price_25kg": 2487.75 },
+        { "name": "CARAFA SPECIAL Type 3", "price_5kg": 609.90, "price_25kg": 2541.25 },
+        { "name": "Chocolate Wheat Malt", "price_5kg": 545.70, "price_25kg": 2273.75 },
+        { "name": "Chocolate Rye Malt", "price_5kg": 609.90, "price_25kg": 2541.25 }
+      ]
+    },
+    {
+      "name": "Roasted Grain",
+      "products": [
+        { "name": "Roasted Barley", "price_5kg": 520.02, "price_25kg": 2166.75 }
+      ]
+    },
+    {
+      "name": "Rye Malts",
+      "products": [
+        { "name": "Rye Malt pale", "price_5kg": 481.50, "price_25kg": 2006.25 },
+        { "name": "CARARYE", "price_5kg": 642.00, "price_25kg": 2675.00 },
+        { "name": "Chocolate Rye Malt", "price_5kg": 609.90, "price_25kg": 2541.25 }
+      ]
+    },
+    {
+      "name": "Spelt Malts",
+      "products": [
+        { "name": "Spelt Malt", "price_5kg": 963.00, "price_25kg": 4012.50 }
+      ]
+    },
+    {
+      "name": "Diastatic Malts",
+      "products": [
+        { "name": "Diastatic Barley Malt", "price_5kg": 513.60, "price_25kg": 2140.00 }
+      ]
+    },
+    {
+      "name": "Distillery Malts",
+      "products": [
+        { "name": "Distilling Barley Malt", "price_5kg": 468.66, "price_25kg": 1952.75 }
+      ]
+    },
+    {
+      "name": "Malt Extracts",
+      "note": "4 KG, 10 KG, 28 KG available size",
+      "products": [
+        { "name": "Bavarian Pilsner", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" },
+        { "name": "Bavarian Hefeweizen", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" },
+        { "name": "Bavarian Maibock", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" },
+        { "name": "Munich Amber", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" },
+        { "name": "Bamberg Rauch", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" },
+        { "name": "Munich October Beer", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" },
+        { "name": "Vienna Red", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" },
+        { "name": "Bavarian Dunkel", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested" }
+      ]
+    },
+    {
+      "name": "Sour Wort",
+      "products": [
+        { "name": "Sour Wort", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested", "note": "20 KG packed in a bag in a box" }
+      ]
+    },
+    {
+      "name": "LME SINAMAR",
+      "products": [
+        { "name": "LME SINAMAR", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested", "note": "5.9 KG, 11.8 KG, 25 KG & 1180 KG One-Way Container" }
+      ]
+    },
+    {
+      "name": "Roasted Malt Extracts",
+      "products": [
+        { "name": "Roasted Malt Extract (RME)", "price_5kg": null, "price_25kg": null, "availability": "Available upon requested", "note": "11.8 KG, 25 KG & 1180 KG One-Way Container" }
+      ]
+    }
+  ]
+}
