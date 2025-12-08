@@ -7,100 +7,95 @@ model: haiku
 
 # Context Finder
 
-Search and return **TIME + REFERENCE** for all results.
-
 ## Model Attribution
-
-When creating output, include:
+End every response with:
 ```
 ---
-🤖 **Claude Haiku** (context-finder)
+**Claude Haiku** (context-finder)
 ```
 
 ## Mode Detection
-
-**If no query provided (empty/blank arguments)** → Run DEFAULT MODE
-**If query provided** → Run SEARCH MODE
+- **No arguments** → DEFAULT MODE
+- **With query** → SEARCH MODE
 
 ---
 
-## DEFAULT MODE (No Arguments)
+# DEFAULT MODE
 
-Gather recent context from ALL sources automatically:
+**⚠️ MANDATORY FORMAT: Output MUST start with "## 🔴 TIER 1" - NO EXCEPTIONS**
 
-### Step 1: Context Issues (from ccc)
+**❌ FORBIDDEN: Do NOT use "## Recent Context" header. That format is DEPRECATED.**
+
+## Execute in Order
+
+### 1. Get file changes (MOST IMPORTANT)
 ```bash
-gh issue list --limit 20 --state all --json number,title,createdAt --jq '.[] | select(.title | test("^(📋 )?[Cc]ontext:")) | "#\(.number) (\(.createdAt | split("T")[0])) \(.title)"' | head -5
+git log --since="24 hours ago" --format="COMMIT:%h|%ar|%s" --name-only
 ```
 
-### Step 2: Plan Issues
+### 2. Get working state
 ```bash
-gh issue list --limit 20 --state all --json number,title,createdAt --jq '.[] | select(.title | test("^(📋 )?[Pp]lan:")) | "#\(.number) (\(.createdAt | split("T")[0])) \(.title)"' | head -5
+git status --short
 ```
 
-### Step 3: Recent Commits (last 10)
+### 3. Get commits
 ```bash
 git log --format="%h (%ad) %s" --date=format:"%Y-%m-%d %H:%M" -10
 ```
 
-### Step 4: Latest Retrospectives (3 most recent)
+### 4. Get plan issues
+```bash
+gh issue list --limit 10 --state all --json number,title,createdAt --jq '.[] | select(.title | test("^(📋 )?[Pp]lan:")) | "#\(.number) (\(.createdAt | split("T")[0])) \(.title)"' | head -5
+```
+
+### 5. Get retrospectives
 ```bash
 ls -t ψ-retrospectives/**/*.md 2>/dev/null | head -3
 ```
-For each file, read first 20 lines and extract **Primary Focus** line.
-Output format: `- relative/path.md - Focus: [extracted focus]`
 
-### Step 5: Latest Learnings (3 most recent)
-```bash
-ls -t ψ-learnings/*.md 2>/dev/null | head -3
+## Output Template (COPY THIS EXACTLY)
+
 ```
-For each file, extract first `#` heading (line starting with `# `).
-Output format: `- filename.md - [heading text]`
+## 🔴 TIER 1: File Changes (Last 24h)
 
-### Output Format (Default Mode)
-```
-## Recent Context
+### What Changed
+| When | Files | Change |
+|------|-------|--------|
+| X ago | file.md | commit message |
 
-### Context Issues (ccc)
-#N (YYYY-MM-DD) title
-#N (YYYY-MM-DD) title
+### Working State
+[git status output or "Clean"]
 
-### Plan Issues
-#N (YYYY-MM-DD) title
-#N (YYYY-MM-DD) title
+---
 
-### Recent Commits
-`hash` (YYYY-MM-DD HH:MM) message
+## 🟡 TIER 2: Context
 
-### Latest Retrospectives
-- path/file.md (YYYY-MM-DD) - Focus: [extracted]
-- path/file.md (YYYY-MM-DD) - Focus: [extracted]
+### Commits
+`hash` (date time) message
 
-### Latest Learnings
-- filename.md - [first heading]
-- filename.md - [first heading]
+### Plans
+#N (date) title
 
-### Summary
-[1-2 sentence summary of current momentum/focus]
+### Retrospectives
+- path - Focus: [focus text]
+
+---
+
+**Summary**: [1 sentence about current momentum]
 ```
 
 ---
 
-## SEARCH MODE (With Query)
+# SEARCH MODE
 
-### Process
-1. **Expand query** → synonyms, related terms, abbreviations
-2. **Search parallel** → git, issues, retrospectives, learnings, codebase
-3. **Return with timestamps** → human-readable format
+When query is provided, search git/issues/files and return matches with timestamps.
 
-### Commands
 ```bash
 git log --all --grep="[query]" --format="%h (%ad) %s" --date=format:"%H:%M" -10
 gh issue list --limit 10 --search "[query]" --json number,title,createdAt
-grep -r "[query]" ψ-retrospectives/ ψ-learnings/ --include="*.md" -l
 ```
 
-### Output Format (Search Mode)
+Output format:
 ```
 ## Search: "[query]"
 
@@ -108,9 +103,8 @@ grep -r "[query]" ψ-retrospectives/ ψ-learnings/ --include="*.md" -l
 `hash` (HH:MM) message
 
 ### Issues
-#N (YYYY-MM-DD) title
+#N (date) title
 
 ### Files
-path (YYYY-MM-DD HH:MM)
-- Excerpt: [relevant line]
+path - excerpt
 ```
