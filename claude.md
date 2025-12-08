@@ -588,6 +588,15 @@ Closes #[issue-number]
 -   **003-upstream-first**: Create upstream issues instead of local patches
 -   **004-detect-before-act**: Always observe state before sending commands - "think first, see first, then decide"
 
+### Tmux & Multi-Agent Infrastructure (2025-12-08)
+-   **Pattern: Pane numbering per-window** - Tmux numbers panes per-window (0-2, then 0-2 in second window), not globally. Broke auto-warp logic until refactored to parse `window_index:pane_index` format.
+-   **Pattern: Output suppression at source** - Suppress direnv logging with `DIRENV_LOG_FORMAT=""`, powerlevel10k warnings with `POWERLEVEL9K_INSTANT_PROMPT=quiet`. Better than downstream masking with `sleep` and `clear`.
+-   **Discovery: Flags have hidden semantics** - `-a` in `tmux list-panes -a` means "all sessions", not "all windows". Was corrupting pane counts by including logger and streamlit sessions.
+-   **Pattern: Semantic layout separation** - Organizing agents by tier (execution vs. specialists) across windows improves cognitive load and workflow clarity. Tested in profile8, profile14.
+-   **Lesson: Test multi-scenario early** - Building auto-warp for single-window first, then refactoring for multi-window cost ~30 minutes. Test with full complexity from start.
+-   **Co-creation insight**: User specificity ("1 2 3 / 4 5 6") shaped better decisions than hypothetical planning. Iterative feedback loop prevented over-engineering.
+-   **Issue #38**: Context snapshot documenting 8 layout profiles with technical implementation details
+
 ### Planning & Architecture Patterns (2025-08-26)
 -   **Pattern**: Use parallel agents for analyzing different aspects of complex systems
 -   **Anti-Pattern**: Creating monolithic plans that try to implement everything at once
