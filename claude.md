@@ -33,7 +33,6 @@ This document provides comprehensive guidelines for an AI assistant working on a
 -   `ccc` - Create context issue and compact the conversation.
 -   `nnn` - Smart planning: Auto-runs `ccc` if no recent context → Create a detailed implementation plan.
 -   `gogogo` - Execute the most recent plan issue step-by-step.
--   `lll` - List project status (issues, PRs, commits) ✅
 
 #### Project Management
 -   `rrr` - Create a detailed session retrospective.
@@ -65,14 +64,12 @@ cd [repository-name]
 cp .env.example .env
 # Edit .env with required values
 
-# 4. Setup tmux development environment
-# Use short code 'sss' for automated setup
+# 4. Setup tmux development environment (optional)
 ```
 
 ### First Task
-1.  Run `lll` to see the current project status.
-2.  Run `nnn` to analyze the latest issue and create a plan.
-3.  Use `gogogo` to implement the plan.
+1.  Run `nnn` to analyze the latest issue and create a plan.
+2.  Use `gogogo` to implement the plan.
 
 ## Project Context
 
@@ -222,7 +219,6 @@ git checkout -b feat/issue-number-description
 # ... implement feature ...
 
 # 3. Test thoroughly
-# Use 'ttt' short code for the full test suite
 
 # 4. Commit with a descriptive message
 git add -A
@@ -272,9 +268,6 @@ This separation ensures a clear distinction between context dumps and actionable
 3.  **Deep Analysis**: Read context, analyze the codebase, research patterns, and identify all affected components.
 4.  **Create Comprehensive Plan Issue**: Use a detailed template to outline the problem, research, proposed solution, implementation steps, risks, and success criteria.
 5.  **Provide Summary**: Briefly summarize the analysis and the issue number created.
-
-#### `lll` - List Project Status ✅
-When you see `lll`, execute relevant `gh` and `git` commands in parallel to get a full overview of the project's state, then provide a visual summary of open issues, recent PRs, and current focus.
 
 #### `rrr` - Retrospective
 **Purpose**: Document the session's activities, learnings, and outcomes.
