@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-label="Main agent icon">
+  <defs>
+    <linearGradient id="gm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="22" fill="#0f172a" stroke="url(#gm)" stroke-width="3"/>
+  <path d="M14 30a10 10 0 0 1 20 0" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="18" cy="19" r="3" fill="#e2e8f0"/>
+  <circle cx="30" cy="19" r="3" fill="#e2e8f0"/>
+</svg>

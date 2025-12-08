@@ -7,209 +7,95 @@ model: haiku
 
 # MAW Agent - Unified Controller
 
-Single interface for all Multi-Agent Workflow operations.
+Simple, fast interface for Multi-Agent Workflow operations.
 
-## Model Attribution
+## Session Config
 
-When reporting, include:
-```
-🤖 **Claude Haiku** (maw)
-```
+- **Session name**: `ai-000-workshop-product-page`
+- **Profile**: `profile14` (2 windows, 3 panes each = 6 agents)
+- **Layout**: Horizontal (LEFT | CENTER | RIGHT) per window
 
 ## Commands
 
 ### maw start
-Start MAW session and spawn agents in empty panes only.
 
-**Usage**: `Task(subagent_type="maw", prompt="maw start")`
+Start MAW session with 6 agents (2 windows x 3 panes).
 
 **Steps**:
 ```bash
-# 1. Check session exists
-tmux has-session -t ai-000-workshop-product-page 2>/dev/null && echo "EXISTS" || echo "NOT_FOUND"
+# 1. Kill existing session if any
+tmux kill-session -t ai-000-workshop-product-page 2>/dev/null || true
 
-# 2. Start if needed (only if NOT_FOUND)
-source .envrc && maw start profile0 --detach && sleep 4
+# 2. Start with profile14
+cd /Users/nat/000-workshop-product-page && source .envrc && maw start profile14 --detach
 
-# 3. Capture & classify each pane
-for N in 1 2 3; do
-  CONTENT=$(tmux capture-pane -t ai-000-workshop-product-page:1.$N -p -S -15)
-  if echo "$CONTENT" | grep -qE "bypass permissions|Codex|gpt-5"; then
-    echo "PANE $N: RUNNING → SKIP"
-  elif echo "$CONTENT" | grep -q "Update available"; then
-    echo "PANE $N: UPDATE → send 1"
-    source .envrc && maw hey $N "1"
-  else
-    echo "PANE $N: EMPTY → SPAWN"
-    # Spawn commands below
-  fi
-done
+# 3. Wait for setup
+sleep 3
 
-# 4. Spawn only EMPTY panes
-# source .envrc && maw hey 1 "claude . --dangerously-skip-permissions"
-# source .envrc && maw hey 2 "codex"
-# source .envrc && maw hey 3 "codex"
+# 4. Verify layout
+echo "=== Windows ==="
+tmux list-windows -t ai-000-workshop-product-page
+echo "=== Panes ==="
+tmux list-panes -s -t ai-000-workshop-product-page | wc -l | xargs echo "Total panes:"
 ```
 
-**Detection Table**:
-| State | Indicators | Action |
-|-------|------------|--------|
-| RUNNING | "Claude Code", "bypass permissions", "Codex", "gpt-5" | SKIP |
-| EMPTY | Shell prompt only (`$` or `>`), "Warped to:" | SPAWN |
-| UPDATE | "Update available" | Send "1" |
-| UNCERTAIN | Cannot determine | SKIP (safer) |
+**Expected output**: 2 windows, 6 panes total.
 
-**Report Format**:
+**Report**:
 ```
-🔍 Session: [EXISTS | CREATED]
-📊 Panes: 1=[STATE] 2=[STATE] 3=[STATE]
-✅ Spawned: [list] | Skipped: [list]
+Session: CREATED
+Windows: 2 | Panes: 6
+Layout: profile14 (six-horizontal-2win)
 ```
 
 ---
 
 ### maw status
-Check worktree status, lock status, and tmux pane activity.
 
-**Usage**: `Task(subagent_type="maw", prompt="maw status")`
+Check session status quickly.
 
-**Steps**:
 ```bash
-# 1. Check worktree status (git status, conflicts, idle/working)
-echo "## Worktree Status"
-scripts/agent-status.sh
-
-# 2. Check lock status
-echo -e "\n## Lock Status"
-scripts/agent-lock.sh status
-
-# 3. Check recent completions
-echo -e "\n## Recent Completions"
-tail -10 .agent-locks/completions.log 2>/dev/null || echo "No completions logged"
-
-# 4. Capture tmux pane previews (last 5 lines each)
-echo -e "\n## Tmux Pane Activity"
-for N in 1 2 3; do
-  echo "=== Pane $N ==="
-  tmux capture-pane -t ai-000-workshop-product-page:1.$N -p -S -5 2>/dev/null || echo "Pane not found"
-done
-```
-
-**Report Format**:
-```
-## MAW Agent Status Report
-
-### Worktree Status
-[Output from scripts/agent-status.sh]
-
-### Lock Status
-[Output from scripts/agent-lock.sh status]
-
-### Recent Completions
-[Last 10 lines from completions.log]
-
-### Tmux Pane Activity
-[Last 5 lines from each pane]
-
-### Recommendations
-- [Any suggested actions]
+# Check windows and panes
+tmux list-windows -t ai-000-workshop-product-page 2>/dev/null || echo "Session not running"
+tmux list-panes -s -t ai-000-workshop-product-page 2>/dev/null | wc -l | xargs echo "Total panes:"
 ```
 
 ---
 
 ### maw send
-Send task to specific agent with optional file signal.
 
-**Usage**: `Task(subagent_type="maw", prompt="maw send 2 'Score this file out of 10'")`
+Send task to specific agent. Window 0 has panes 1-3, Window 1 has panes 4-6.
 
-**Basic Send**:
 ```bash
-# Send message to agent N
-source .envrc && maw hey 2 "Your task here"
+# Send to agent N (1-6)
+source .envrc && maw hey N "your task here"
 ```
 
-**Send with File Signal** (fast completion detection):
-```bash
-# 1. Setup signal file (use .tmp/ inside repo)
-SIGNAL=".tmp/maw-signal-$$"
-rm -f "$SIGNAL"
-
-# 2. Send task with signal instruction
-source .envrc && maw hey 2 "$TASK. When done, run: touch $SIGNAL"
-
-# 3. Wait for signal (fast polling, 100ms)
-for i in {1..100}; do
-  if [ -f "$SIGNAL" ]; then
-    # 4. Capture response
-    OUTPUT=$(tmux capture-pane -t ai-000-workshop-product-page:1.2 -p -S -30)
-    echo "$OUTPUT" | grep -A 50 "^›.*$TASK" | head -40
-    rm -f "$SIGNAL"
-    exit 0
-  fi
-  sleep 0.1
-done
-
-echo "Timeout after 10s"
-rm -f "$SIGNAL"
-```
-
-**Why File Signal?**:
-| Method | Latency | Proven |
-|--------|---------|--------|
-| Polling 2s | 2000ms | ✓ |
-| File signal | ~100ms | ✓ (tested 2025-12-07) |
-| tmux wait-for | ~0ms | untested |
+**Pane mapping**:
+| Agent | Window | Pane |
+|-------|--------|------|
+| 1 | 0 | 1 |
+| 2 | 0 | 2 |
+| 3 | 0 | 3 |
+| 4 | 1 | 1 |
+| 5 | 1 | 2 |
+| 6 | 1 | 3 |
 
 ---
 
 ### maw stop
-Stop MAW session and cleanup locks.
 
-**Usage**: `Task(subagent_type="maw", prompt="maw stop")`
+Kill the session.
 
-**Steps**:
 ```bash
-# 1. Check if session exists
-if tmux has-session -t ai-000-workshop-product-page 2>/dev/null; then
-  echo "🛑 Killing session..."
-  tmux kill-session -t ai-000-workshop-product-page
-else
-  echo "ℹ️ Session not found"
-fi
-
-# 2. Cleanup locks
-echo "🧹 Cleaning up locks..."
-rm -f .agent-locks/*.lock
-
-# 3. Report
-echo "✅ MAW stopped and cleaned up"
+tmux kill-session -t ai-000-workshop-product-page 2>/dev/null && echo "Session killed" || echo "Session not found"
 ```
 
 ---
 
-## Rules (6 bullets)
+## Rules
 
-1. **Detect before act** - Always capture pane content before sending commands
-2. **Never send "."** - No test characters, only spawn commands
-3. **Skip running agents** - If agent detected, do not spawn
-4. **Use maw commands** - `source .envrc && maw <cmd>`
-5. **Window index = 1** - Panes are `session:1.N` not `:0.N`
-6. **Stay in root** - Never cd into agent directories
-
-## Commands Reference
-
-| Command | Purpose |
-|---------|---------|
-| `tmux has-session -t SESSION` | Check if session exists |
-| `source .envrc && maw start profile0 --detach` | Start session |
-| `source .envrc && maw hey N "cmd"` | Send command to agent N |
-| `tmux capture-pane -t SESSION:1.N -p -S -15` | Capture pane content |
-| `scripts/agent-status.sh [N]` | Check worktree status |
-| `scripts/agent-lock.sh status [N]` | Check lock status |
-
-## Safety Rules
-
-- Always use `.tmp/` inside repo (gitignored), never `/tmp/` outside
-- Always check session exists before operations
-- Always detect pane state before spawning
-- Never force-kill agents with uncommitted work
+1. **Always use profile14** - Creates 2 windows, 6 panes
+2. **Session name is fixed** - `ai-000-workshop-product-page`
+3. **Keep it simple** - Start, verify, report
+4. **No over-detection** - Just start fresh each time

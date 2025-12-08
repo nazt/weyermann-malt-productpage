@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-label="Right agent icon">
+  <circle cx="24" cy="24" r="22" fill="#0f172a" stroke="#f97316" stroke-width="3"/>
+  <path d="M20 16h8l6 8-6 8h-8l-6-8z" fill="#fb923c" opacity="0.18"/>
+  <path d="M22 16h6l5 8-5 8h-6l-5-8z" fill="none" stroke="#fb923c" stroke-width="3" stroke-linejoin="round"/>
+</svg>

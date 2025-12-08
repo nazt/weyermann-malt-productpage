@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weyermann Specialty Malts | Demo Catalog</title>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body class="page">
+    <div class="nav-overlay"></div>
+    <header class="site-header">
+      <div class="container nav-bar">
+        <div class="brand">
+          <div class="brand-mark">W</div>
+          <div class="brand-text">
+            <strong data-company>Weyermann</strong>
+            <span data-subtitle>Specialty Malts</span>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#catalog">Catalog</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <div class="pill">
+            <span class="dot"></span>
+            <span>Live catalog</span>
+          </div>
+          <button class="cta ghost" type="button">Download PDF</button>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            data-nav-toggle
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container" id="overview">
+        <div class="hero-grid">
+          <div class="hero-card">
+            <div class="pill">
+              <span class="dot"></span>
+              <span>New season drop</span>
+            </div>
+            <h1>Specialty malts engineered for modern craft brewers.</h1>
+            <p class="lead">
+              Pull live product categories, current price windows, and exchange notices directly from
+              the shared JSON file. The grid below is hydrated from <code>products.json</code>.
+            </p>
+            <div class="hero-actions">
+              <a class="cta" href="#catalog">Explore the catalog</a>
+              <a class="cta ghost" href="#contact">Talk to supply</a>
+            </div>
+            <div class="meta-row">
+              <div class="meta">
+                <strong>Exchange note</strong>
+                <span data-exchange>Watching EUR/THB for adjustments.</span>
+              </div>
+              <div class="meta">
+                <strong>Price window</strong>
+                <span data-validity>Current quarter</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-stack">
+            <div class="card badge-card alert">
+              <strong data-company-secondary>Weyermann Specialty Malts</strong>
+              <div data-subtitle-secondary>Brewery and distillery catalog</div>
+              <div class="chip" style="margin-top: 10px;">Source: products.json</div>
+            </div>
+            <div class="card">
+              <div class="stats">
+                <div class="stat">
+                  <div class="label">Categories</div>
+                  <div class="value" data-stat-categories>--</div>
+                </div>
+                <div class="stat">
+                  <div class="label">Products</div>
+                  <div class="value" data-stat-products>--</div>
+                </div>
+                <div class="stat">
+                  <div class="label">Currency</div>
+                  <div class="value" data-stat-currency>THB</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="alert" data-alert>
+                Auto-refresh catalog and pricing in one place. Pin your preferred sizes and export as
+                PDF for purchasing.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container divider"></div>
+
+      <section class="container" id="catalog">
+        <div class="section-head">
+          <div>
+            <h2>Product grid preview</h2>
+            <p>Highlights the first few items in each category with live pricing.</p>
+          </div>
+          <div class="chip">Live feed / products.json</div>
+        </div>
+        <div class="grid" data-product-grid></div>
+      </section>
+
+      <div class="container divider"></div>
+
+      <section class="container" id="pricing">
+        <div class="section-head">
+          <div>
+            <h2>Pricing context</h2>
+            <p>Keep an eye on the currency and price window while planning orders.</p>
+          </div>
+          <a class="cta ghost" href="#catalog">Jump to catalog</a>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Currency + exchange</h3>
+            <p class="note">
+              Rates are pulled directly from the dataset so the landing page stays aligned with the
+              operations team.
+            </p>
+            <div class="meta" style="margin-top: 14px;">
+              <strong>Currency</strong> <span data-currency-mention>THB</span>
+            </div>
+            <div class="meta" style="margin-top: 10px;">
+              <strong>Exchange note</strong> <span data-exchange-secondary>Loading...</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Price validity</h3>
+            <p class="note">
+              Share the current validity window and export directly from the landing page for procurement
+              reviews.
+            </p>
+            <div class="meta" style="margin-top: 14px;">
+              <strong>Valid through</strong> <span data-validity-secondary>Current quarter</span>
+            </div>
+            <div class="chip" style="margin-top: 10px;">Future-proof for PDF export</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container divider"></div>
+
+      <section class="container" id="contact">
+        <div class="section-head">
+          <div>
+            <h2>Ready to place an order?</h2>
+            <p>Share your brew schedule and we will return a tailored malt pack.</p>
+          </div>
+          <a class="cta" href="mailto:sales@example.com">Email supply team</a>
+        </div>
+        <div class="alert">
+          Looking for a specific malt or custom split sizes? The JSON data already includes availability
+          notes, and the grid surfaces them for a faster review.
+        </div>
+      </section>
+    </main>
+
+    <script type="module">
+      import "./js/nav.js";
+      import { loadProducts, summarizeProducts } from "./data/products.js";
+
+      const grid = document.querySelector("[data-product-grid]");
+      const statCategories = document.querySelector("[data-stat-categories]");
+      const statProducts = document.querySelector("[data-stat-products]");
+      const statCurrency = document.querySelector("[data-stat-currency]");
+      const exchangeEls = document.querySelectorAll("[data-exchange], [data-exchange-secondary]");
+      const validityEls = document.querySelectorAll("[data-validity], [data-validity-secondary]");
+      const currencyEls = document.querySelectorAll("[data-currency-mention], [data-stat-currency]");
+      const companyEls = document.querySelectorAll("[data-company], [data-company-secondary]");
+      const subtitleEls = document.querySelectorAll("[data-subtitle], [data-subtitle-secondary]");
+
+      function renderSkeleton() {
+        grid.innerHTML = "";
+        for (let i = 0; i < 4; i += 1) {
+          const card = document.createElement("article");
+          card.className = "product-card";
+          card.innerHTML = `
+            <div class="skeleton title"></div>
+            <div class="skeleton text" style="width: 60%; margin-top: 8px;"></div>
+            <div class="items" style="margin-top: 14px;">
+              <div class="item">
+                <div class="skeleton text" style="width: 70%;"></div>
+                <div class="skeleton text" style="width: 40%; justify-self: end;"></div>
+              </div>
+              <div class="item">
+                <div class="skeleton text" style="width: 60%;"></div>
+                <div class="skeleton text" style="width: 35%; justify-self: end;"></div>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      }
+
+      function formatPrice(product, currency) {
+        const parts = [];
+        const formatter = (value) =>
+          `${currency} ${Number(value).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}`;
+
+        if (product.price5 !== null && product.price5 !== undefined) {
+          parts.push(`${formatter(product.price5)} / 5kg`);
+        }
+        if (product.price25 !== null && product.price25 !== undefined) {
+          parts.push(`${formatter(product.price25)} / 25kg`);
+        }
+        if (!parts.length && product.availability) {
+          parts.push(product.availability);
+        }
+        if (!parts.length) {
+          parts.push("Contact for pricing");
+        }
+        return parts.join(" | ");
+      }
+
+      function renderGrid(categories, currency) {
+        grid.innerHTML = "";
+        categories.forEach((category) => {
+          const card = document.createElement("article");
+          card.className = "product-card";
+          const note = category.note ? `<p class="note">${category.note}</p>` : "";
+          const items = category.items.slice(0, 4);
+
+          card.innerHTML = `
+            <div style="display:flex; align-items:center; gap:10px;">
+              <h3>${category.name}</h3>
+              <span class="tag">${currency}</span>
+            </div>
+            ${note}
+            <div class="items"></div>
+          `;
+
+          const list = card.querySelector(".items");
+
+          items.forEach((item) => {
+            const row = document.createElement("div");
+            row.className = "item";
+            row.innerHTML = `
+              <div class="name">${item.name}</div>
+              <div class="price">${formatPrice(item, currency)}</div>
+            `;
+            list.appendChild(row);
+          });
+
+          if (category.items.length > items.length) {
+            const extra = document.createElement("div");
+            extra.className = "chip";
+            extra.textContent = `+${category.items.length - items.length} more in this category`;
+            card.appendChild(extra);
+          }
+
+          grid.appendChild(card);
+        });
+      }
+
+      function hydrateText(content, elements) {
+        elements.forEach((el) => {
+          el.textContent = content;
+        });
+      }
+
+      async function bootstrap() {
+        renderSkeleton();
+        try {
+          const data = await loadProducts();
+          const summary = summarizeProducts(data);
+
+          hydrateText(data.company, companyEls);
+          hydrateText(data.subtitle || "Brewery and distillery catalog", subtitleEls);
+          hydrateText(data.exchangeNote || "Exchange note not provided", exchangeEls);
+          hydrateText(data.priceValid || "Current window", validityEls);
+          currencyEls.forEach((el) => (el.textContent = data.currency || "THB"));
+
+          statCategories.textContent = summary.categoryCount;
+          statProducts.textContent = summary.productCount;
+          statCurrency.textContent = summary.currency;
+
+          renderGrid(data.categories, summary.currency);
+        } catch (error) {
+          grid.innerHTML =
+            '<div class="alert">Unable to load product data. Check that products.json is reachable.</div>';
+          console.error(error);
+        }
+      }
+
+      bootstrap();
+    </script>
+  </body>
+</html>

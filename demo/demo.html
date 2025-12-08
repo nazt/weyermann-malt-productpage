@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAW Workflow Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/demo.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero__title">
+        <p class="eyebrow">MAW Live Demo</p>
+        <h1>Orchestrator → Agents → Results</h1>
+        <p class="lede">Watch a simulated Multi-Agent Workflow (MAW) run: tasks are broadcast from the orchestrator, executed by agents, and merged into a unified result stream.</p>
+        <div class="hero__controls">
+          <button id="trigger-run" class="btn primary">Trigger New Run</button>
+          <button id="toggle-speed" class="btn ghost">Speed: normal</button>
+        </div>
+      </div>
+      <div class="hero__badge">
+        <div class="orb"></div>
+        <div>
+          <p class="label">Live pulses</p>
+          <p class="big">Simulated</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="viz">
+        <div class="flow-lane"></div>
+        <div class="node orchestrator" data-node="orchestrator">
+          <div class="pulse"></div>
+          <p class="label">Root</p>
+          <h3>Orchestrator</h3>
+          <p class="meta">Plans tasks, broadcasts to agents, syncs results</p>
+          <div class="status-pill" id="status-orchestrator">coordinating</div>
+        </div>
+
+        <div class="agents-row">
+          <div class="node agent" data-agent="agent1">
+            <header class="node__head">
+              <div>
+                <p class="label">Agent 1</p>
+                <h4>Left Rail</h4>
+              </div>
+              <div class="status-pill" id="status-agent1">pending</div>
+            </header>
+            <p class="meta">Claude (planning) · UX microcopy, guardrails</p>
+            <div class="progress"><div class="bar" id="bar-agent1"></div></div>
+          </div>
+
+          <div class="node agent" data-agent="agent2">
+            <header class="node__head">
+              <div>
+                <p class="label">Agent 2</p>
+                <h4>Center Rail</h4>
+              </div>
+              <div class="status-pill" id="status-agent2">pending</div>
+            </header>
+            <p class="meta">Codex · Logic, API wiring, state handling</p>
+            <div class="progress"><div class="bar" id="bar-agent2"></div></div>
+          </div>
+
+          <div class="node agent" data-agent="agent3">
+            <header class="node__head">
+              <div>
+                <p class="label">Agent 3</p>
+                <h4>Right Rail</h4>
+              </div>
+              <div class="status-pill" id="status-agent3">pending</div>
+            </header>
+            <p class="meta">Codex · Integrations, output polish, QA</p>
+            <div class="progress"><div class="bar" id="bar-agent3"></div></div>
+          </div>
+        </div>
+
+        <div class="node results" data-node="results">
+          <div class="pulse"></div>
+          <p class="label">Output</p>
+          <h3>Results Bus</h3>
+          <p class="meta">Merged artifacts, diff previews, sync status</p>
+          <div class="status-pill" id="status-results">pending</div>
+        </div>
+      </section>
+
+      <section class="sidebar">
+        <div class="card timeline">
+          <header>
+            <p class="label">Workflow timeline</p>
+            <p class="timestamp" id="cycle-label">cycle 1 · normal speed</p>
+          </header>
+          <div class="steps" id="step-list"></div>
+        </div>
+
+        <div class="card log">
+          <header>
+            <p class="label">Event stream</p>
+            <button id="clear-log" class="btn ghost small">Clear</button>
+          </header>
+          <ul id="log-list"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/demo.js"></script>
+</body>
+</html>
