@@ -25,9 +25,12 @@ Create issue with `gh issue create`:
 **Created**: YYYY-MM-DD HH:MM GMT+7
 **Type**: Implementation Plan
 
+**Related**:
+- #N (YYYY-MM-DD) title
+- #N (YYYY-MM-DD) title
+
 ## Context
 - Commits: `hash` (HH:MM) message
-- Related: #N (YYYY-MM-DD) title
 - Files: path (modified date)
 
 ## Problem
