@@ -26,8 +26,8 @@ Create issue with `gh issue create`:
 **Type**: Implementation Plan
 
 **Related**:
-- #N (YYYY-MM-DD) title
-- #N (YYYY-MM-DD) title
+- 🎯 #N (YYYY-MM-DD) short title
+- 📋 #N (YYYY-MM-DD) short title
 
 ## Context
 - Commits: `hash` (HH:MM) message
