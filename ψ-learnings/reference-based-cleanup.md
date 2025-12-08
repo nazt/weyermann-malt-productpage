@@ -35,11 +35,11 @@ From 2025-12-08 cleanup:
 
 | Issue | Initial Decision | Refs Found | Final Decision |
 |-------|------------------|------------|----------------|
-| #3 | Stale | 36 | ✅ Keep |
-| #4 | Stale | 11 | ✅ Keep |
-| #21 | Complete | 29 | ✅ Keep |
-| #31 | Keep | 0 | 🗑️ Close |
-| #39 | Keep | 0 | 🗑️ Close |
+| [#3](https://github.com/nazt/weyermann-malt-productpage/issues/3) | Stale | 36 | ✅ Keep |
+| [#4](https://github.com/nazt/weyermann-malt-productpage/issues/4) | Stale | 11 | ✅ Keep |
+| [#21](https://github.com/nazt/weyermann-malt-productpage/issues/21) | Complete | 29 | ✅ Keep |
+| [#31](https://github.com/nazt/weyermann-malt-productpage/issues/31) | Keep | 0 | 🗑️ Close |
+| [#39](https://github.com/nazt/weyermann-malt-productpage/issues/39) | Keep | 0 | 🗑️ Close |
 
 **Result**: Prevented 4 bad closes, found 15 truly orphaned issues.
 
@@ -70,4 +70,4 @@ Embedded in `issues-cleanup` agent as Step 2.5:
 ## Related
 - `.claude/agents/issues-cleanup.md` - Implementation
 - `ψ-logs/2025-12/08/events.md` - First use
-- #63 - Cleanup plan issue
+- [#63](https://github.com/nazt/weyermann-malt-productpage/issues/63) - Cleanup plan issue

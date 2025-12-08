@@ -139,7 +139,9 @@ gh issue create --title "🧹 cleanup: GitHub issues" --body "$(cat <<'EOF'
 
 | # | Issue | Refs | Reason |
 |---|-------|------|--------|
-| #N | title (YYYY-MM-DD) | 0 | [reason] |
+| [#N](../../issues/N) | title (YYYY-MM-DD) | 0 | [reason] |
+
+**Note**: Use `[#N](../../issues/N)` format for clickable GitHub links.
 
 ## OPEN Issues to Keep
 | # | Issue | Reason |
@@ -216,6 +218,9 @@ gh issue close M --comment "Cleanup: [reason]"
 # Create directory if needed
 mkdir -p "ψ-logs/$(date +%Y-%m)/$(date +%d)"
 
+# Get repo URL for links
+REPO_URL=$(gh repo view --json url -q '.url')
+
 # Append to events.md
 EVENT_FILE="ψ-logs/$(date +%Y-%m)/$(date +%d)/events.md"
 TIME=$(TZ='Asia/Bangkok' date +"%H:%M")
@@ -228,27 +233,30 @@ if [ ! -f "$EVENT_FILE" ]; then
   echo "|------|------|--------|-----------|" >> "$EVENT_FILE"
 fi
 
-# Append cleanup event
-echo "| $TIME | cleanup | Closed #X, #Y, #Z | #[PLAN_NUMBER] |" >> "$EVENT_FILE"
+# Append cleanup event with GitHub links
+echo "| $TIME | cleanup | Closed [#X](${REPO_URL}/issues/X), [#Y](${REPO_URL}/issues/Y) | [#PLAN](${REPO_URL}/issues/PLAN) |" >> "$EVENT_FILE"
 ```
 
 ### 6b: Update Cleanup Plan Issue
 ```bash
-gh issue comment [PLAN_NUMBER] --body "$(cat <<'EOF'
+# Get repo URL
+REPO_URL=$(gh repo view --json url -q '.url')
+
+gh issue comment [PLAN_NUMBER] --body "$(cat <<EOF
 ## ✅ Cleanup Completed
 
 **Time**: [HH:MM] GMT+7
 
 ### Closed
-- #X - [reason]
-- #Y - [reason]
-- #Z - [reason]
+- [#X](${REPO_URL}/issues/X) - [reason]
+- [#Y](${REPO_URL}/issues/Y) - [reason]
+- [#Z](${REPO_URL}/issues/Z) - [reason]
 
 ### Kept
-- #A, #B, #C (active)
+- [#A](${REPO_URL}/issues/A), [#B](${REPO_URL}/issues/B) (active)
 
 ### Event Log
-→ `ψ-logs/YYYY-MM/DD/events.md`
+→ \`ψ-logs/YYYY-MM/DD/events.md\`
 EOF
 )"
 ```
