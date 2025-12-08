@@ -59,43 +59,42 @@ gh issue list --limit 10 --state all --json number,title,createdAt --jq '.[] | s
 ls -t ψ-retrospectives/**/*.md 2>/dev/null | head -3
 ```
 
-## Output Format
+## Output Format (Compact)
 
 ```
-## 🔴 TIER 1: File Changes (Last 24h)
+## 🔴 TIER 1: Files Changed
 
-| Score | When | File | Change |
-|-------|------|------|--------|
-| 🔴 7 | 5m ago | src/index.ts | feat: New feature |
-| 🟠 5 | 1h ago | .claude/agents/x.md | fix: Agent |
-| 🟡 3 | 3h ago | README.md | docs: Update |
-| ⚪ 1 | 6h ago | ψ-retrospectives/... | docs: Retro |
+| | When | File | What |
+|-|------|------|------|
+| 🔴 | 5m | src/index.ts | feat: New |
+| 🟠 | 1h | .claude/x.md | fix: Agent |
+| 🟡 | 3h | README.md | docs: Update |
+| ⚪ | 6h | ψ-retro/... | docs: Retro |
 
-### Working State
-[git status or "Clean"]
+**Working**: [M file.md] or "Clean"
 
 ---
 
 ## 🟡 TIER 2: Context
 
-### Commits
-| Time | Commit | Message |
-|------|--------|---------|
-| HH:MM | `hash` | message |
+**Commits**
+| Time | Hash | Message |
+|------|------|---------|
+| 14:30 | 5c1786f | feat: Thing |
 
-### Plans
-| Date | Issue | Title |
-|------|-------|-------|
-| YYYY-MM-DD | #N | title |
+**Plans**
+| # | Title |
+|---|-------|
+| #66 | plan: /recap |
 
-### Retrospectives
-| Time | File | Focus |
-|------|------|-------|
-| HH:MM | path | focus |
+**Retros**
+| Time | Focus |
+|------|-------|
+| 14:00 | Focus text |
 
 ---
 
-**Summary**: [1 sentence on highest-scored changes]
+**Now**: [What's hot]
 ```
 
 ---

@@ -58,40 +58,39 @@ prompt: |
   - Impact: CLAUDE.md/package.json = +2, config = +1
   - Score 6+ = 🔴, 4-5 = 🟠, 2-3 = 🟡, 0-1 = ⚪
 
-  Output EXACTLY like this:
+  Output EXACTLY like this (compact, no extra words):
 
-  ## 🔴 TIER 1: File Changes (Last 24h)
+  ## 🔴 TIER 1: Files Changed
 
-  | Score | When | File | Change |
-  |-------|------|------|--------|
-  | 🔴 7 | 5 min ago | src/index.ts | feat: Add new feature |
-  | 🟠 5 | 1h ago | .claude/agents/foo.md | fix: Agent prompt |
-  | 🟡 3 | 3h ago | README.md | docs: Update readme |
-  | ⚪ 1 | 6h ago | ψ-retrospectives/... | docs: Retrospective |
+  | | When | File | What |
+  |-|------|------|------|
+  | 🔴 | 5m | src/index.ts | feat: New feature |
+  | 🟠 | 1h | .claude/agents/foo.md | fix: Agent |
+  | 🟡 | 3h | README.md | docs: Update |
+  | ⚪ | 6h | ψ-retro/... | docs: Retro |
 
-  ### Working State
-  [git status output or "Clean - no uncommitted changes"]
+  **Working**: [M file.md, A new.md] or "Clean"
 
   ---
 
   ## 🟡 TIER 2: Context
 
-  ### Commits (Last 10)
-  | Time | Commit | Message |
-  |------|--------|---------|
-  | HH:MM | `hash` | message |
+  **Commits**
+  | Time | Hash | Message |
+  |------|------|---------|
+  | 14:30 | 5c1786f | feat: Thing |
 
-  ### Active Plans
-  | Date | Issue | Title |
-  |------|-------|-------|
-  | YYYY-MM-DD | #N | title |
+  **Plans**
+  | # | Title |
+  |---|-------|
+  | #66 | plan: /recap |
 
-  ### Recent Retrospectives
-  | Time | File | Focus |
-  |------|------|-------|
-  | HH:MM | path | focus text |
+  **Retros**
+  | Time | Focus |
+  |------|-------|
+  | 14:00 | PocketBase 5-agent |
 
   ---
 
-  **Summary**: [1 sentence focusing on highest-scored changes]
+  **Now**: [What's hot based on 🔴 scores]
 ```
