@@ -18,8 +18,8 @@ Create a GitHub plan issue with REAL context.
 ## Step 1: Gather Context
 
 ```bash
-# Get RECENT issues (last 5)
-gh issue list --limit 5 --json number,createdAt | jq -r '.[] | "- #\(.number) (\(.createdAt[:10]))"'
+# Get RECENT issues (last 5) - date first
+gh issue list --limit 5 --json number,createdAt | jq -r '.[] | "- (\(.createdAt[:10])) #\(.number)"'
 
 # Get recent commits
 git log --format="- \`%h\` (%ad) %s" --date=format:"%H:%M" -5
@@ -33,8 +33,8 @@ gh issue create --title "plan: [TITLE]" --body "$(cat <<'EOF'
 **Type**: Implementation Plan
 
 **Related**:
-- #51 (2025-12-08)
-- #50 (2025-12-08)
+- (2025-12-08) #51
+- (2025-12-08) #50
 
 ## Problem
 [Real problem description]
@@ -52,21 +52,13 @@ EOF
 )"
 ```
 
-## WRONG (never do this):
-
-```
-- 001 product display #1 (2025-12-08)  ← NO! Title before #
-- #1, #2, #3                           ← NO! Random old issues
-- #42 (2025-12-08) Auto-start Codex    ← NO! Title after date
-```
-
 ## CORRECT:
 
 ```
 **Related**:
-- #51 (2025-12-08)
-- #50 (2025-12-08)
-- #42 (2025-12-08)
+- (2025-12-08) #51
+- (2025-12-08) #50
+- (2025-12-08) #42
 ```
 
-Just `#N (date)`. Nothing else.
+Format: `(YYYY-MM-DD) #N` - date first, then issue number.
