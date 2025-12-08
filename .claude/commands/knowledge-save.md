@@ -1,4 +1,4 @@
-# sss - Session Snapshot (Raw Log)
+# /knowledge-save - Raw Session Capture
 
 Quick capture of session work. Layer 1: Raw data with full traceability.
 

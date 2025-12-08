@@ -1,4 +1,4 @@
-# til - Today I Learned (Distilled Knowledge)
+# /distill - Extract Patterns & Lessons
 
 Distill patterns and lessons from raw logs. Layer 2: Refined, reusable knowledge.
 
