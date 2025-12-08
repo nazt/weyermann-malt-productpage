@@ -22,12 +22,12 @@ Gather recent context from ALL sources automatically:
 
 ### Step 1: Context Issues (from ccc)
 ```bash
-gh issue list --limit 5 --search "context: in:title" --json number,title,createdAt --jq '.[] | "#\(.number) (\(.createdAt | split("T")[0])) \(.title)"'
+gh issue list --limit 20 --state all --json number,title,createdAt --jq '.[] | select(.title | test("^(📋 )?[Cc]ontext:")) | "#\(.number) (\(.createdAt | split("T")[0])) \(.title)"' | head -5
 ```
 
 ### Step 2: Plan Issues
 ```bash
-gh issue list --limit 5 --search "plan: in:title" --json number,title,createdAt --jq '.[] | "#\(.number) (\(.createdAt | split("T")[0])) \(.title)"'
+gh issue list --limit 20 --state all --json number,title,createdAt --jq '.[] | select(.title | test("^(📋 )?[Pp]lan:")) | "#\(.number) (\(.createdAt | split("T")[0])) \(.title)"' | head -5
 ```
 
 ### Step 3: Recent Commits (last 10)
@@ -37,15 +37,17 @@ git log --format="%h (%ad) %s" --date=format:"%Y-%m-%d %H:%M" -10
 
 ### Step 4: Latest Retrospectives (3 most recent)
 ```bash
-find ψ-retrospectives -name "*.md" -type f | xargs ls -t 2>/dev/null | head -3
+ls -t ψ-retrospectives/**/*.md 2>/dev/null | head -3
 ```
-For each file, extract: date, focus, key achievement (first 2 lines after "## Session Summary")
+For each file, read first 20 lines and extract **Primary Focus** line.
+Output format: `- relative/path.md - Focus: [extracted focus]`
 
 ### Step 5: Latest Learnings (3 most recent)
 ```bash
-find ψ-learnings -name "*.md" -type f | xargs ls -t 2>/dev/null | head -3
+ls -t ψ-learnings/*.md 2>/dev/null | head -3
 ```
-For each file, show filename and first heading.
+For each file, extract first `#` heading (line starting with `# `).
+Output format: `- filename.md - [heading text]`
 
 ### Output Format (Default Mode)
 ```
