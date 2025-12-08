@@ -742,6 +742,19 @@ Ctrl+b, d              # Detach from session
 - products.json (static file, read-only) (001-product-display)
 
 ## Available Subagents
+
+- **marie-kondo**: 🧹 Lean file placement consultant - ASK BEFORE creating files!
+  - Usage: Task tool with subagent_type='marie-kondo'
+  - **MUST consult before**: Creating any new file, especially in root
+  - Philosophy: "Does this file spark joy? Does it have a home?"
+  - Output: Verdict (✅ APPROVED / ❌ REJECTED / 🔄 REDIRECT) + recommended path
+
+- **executor**: 🚀 Execute plans from GitHub issues automatically
+  - Usage: Task tool with subagent_type='executor' with prompt "Execute issue #70"
+  - Reads bash blocks from issue, runs commands sequentially
+  - Safety: Whitelist commands, blocks rm -rf/--force/sudo
+  - Output: Comments execution log on issue, closes on success
+
 - **context-finder**: Fast search through git history, retrospectives, issues, and codebase
   - Usage: Task tool with subagent_type='context-finder'
   - Returns: File paths + excerpts for main agent to read
