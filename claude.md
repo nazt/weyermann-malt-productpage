@@ -35,9 +35,10 @@ This document provides comprehensive guidelines for an AI assistant working on a
 -   `gogogo` - Execute the most recent plan issue step-by-step.
 
 #### Knowledge Management (3-Layer System)
--   `/knowledge-save` - Raw capture → `ψ-logs/` (Layer 1: Quick session logs)
+-   `/snapshot [title]` - Knowledge capture → `ψ-logs/` (Layer 1: What we learned)
 -   `/distill` - Extract patterns → `ψ-learnings/` (Layer 2: Reusable knowledge)
 -   `rrr` - Full retrospective → `ψ-retrospectives/` (Layer 3: Narrative for book)
+-   `/recap` - Fresh start context summary (tiered + scored)
 
 
 ## Quick Start Guide
