@@ -36,4 +36,11 @@ path (YYYY-MM-DD HH:MM)
 ```bash
 git log --format="%h (%ad) %s" --date=format:"%H:%M" -15
 gh issue list --limit 10 --json number,title,createdAt
+
+# Token estimate (~4 chars = 1 token)
+wc -c file.md | awk '{print int($1/4)}'
 ```
+
+## Token Counting
+
+Count your output characters, estimate: `chars / 4 = tokens`
