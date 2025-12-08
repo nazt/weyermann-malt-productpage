@@ -745,11 +745,17 @@ Ctrl+b, d              # Detach from session
   - Philosophy: "Does this file spark joy? Does it have a home?"
   - Output: Verdict (✅ APPROVED / ❌ REJECTED / 🔄 REDIRECT) + recommended path
 
-- **executor**: 🚀 Execute plans from GitHub issues automatically
+- **executor**: 🚀 Execute plans from GitHub issues (simple tasks)
   - Usage: Task tool with subagent_type='executor' with prompt "Execute issue #70"
+  - Model: **haiku** (fast) - for delete, move, git commands
   - Reads bash blocks from issue, runs commands sequentially
   - Safety: Whitelist commands, blocks rm -rf/--force/sudo
-  - Output: Comments execution log on issue, closes on success
+
+- **coder**: 💻 Create code files from GitHub issue specs
+  - Usage: Task tool with subagent_type='coder' with prompt "Implement issue #73"
+  - Model: **opus** (quality) - for creating new code
+  - Writes files, follows repo patterns, documents decisions
+  - Use when quality > speed
 
 - **context-finder**: Fast search through git history, retrospectives, issues, and codebase
   - Usage: Task tool with subagent_type='context-finder'
