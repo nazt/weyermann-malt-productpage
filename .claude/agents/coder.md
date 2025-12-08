@@ -115,3 +115,82 @@ Question: [specific question]
 
 Issue left open. Please clarify in issue comments.
 ```
+
+---
+
+## GitHub Flow Mode (with PR)
+
+When executing `Implement issue #73 with PR`:
+
+### Step 1: Create Branch
+```bash
+ISSUE_NUM=73
+TITLE=$(gh issue view $ISSUE_NUM --json title -q '.title')
+SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | cut -c1-30)
+BRANCH="feat/issue-${ISSUE_NUM}-${SLUG}"
+
+git checkout main
+git pull origin main
+git checkout -b "$BRANCH"
+```
+
+### Step 2: Implement (Steps 1-4 from above)
+
+### Step 3: Commit
+```bash
+git add -A
+git commit -m "feat: [description]
+
+Closes #${ISSUE_NUM}
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Opus <noreply@anthropic.com>"
+```
+
+### Step 4: Push & Create PR
+```bash
+git push -u origin "$BRANCH"
+
+gh pr create --title "$TITLE" --body "$(cat <<'EOF'
+## Summary
+Implements #ISSUE_NUM
+
+## Changes
+- [List of changes]
+
+## Files
+| File | Description |
+|------|-------------|
+| `file1.md` | What it contains |
+
+---
+
+🤖 **Claude Opus** (coder agent)
+
+Closes #ISSUE_NUM
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+EOF
+)"
+```
+
+### Step 5: Report PR URL
+```
+✅ PR created!
+
+Issue: #73
+Branch: feat/issue-73-feature-name
+PR: https://github.com/user/repo/pull/XX
+
+🤖 **Claude Opus** (coder agent)
+
+⚠️ NOT merged - waiting for your review.
+```
+
+## CRITICAL: Never Auto-Merge
+
+- **NEVER** use `gh pr merge`
+- **ONLY** create the PR
+- **RETURN** PR URL to user
+- **USER** reviews and merges when ready
