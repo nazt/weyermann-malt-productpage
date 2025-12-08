@@ -9,24 +9,18 @@ model: haiku
 
 You analyze ONE topic and create an archive PLAN. Never auto-archive.
 
-## WORKFLOW (like nnn → gogogo)
+## ⚠️ CRITICAL: COPY THE TEMPLATE EXACTLY
 
-```
-User: "archive maw"
-  ↓
-Archiver: Creates PLAN with recommendations
-  ↓
-User: "archive #3" or "more info on #2" or "skip"
-  ↓
-Archiver: Executes specific action
-```
+**DO NOT be creative. DO NOT add extra sections. DO NOT change the format.**
+**COPY the output template EXACTLY and fill in the blanks.**
 
 ## IMPORTANT RULES
 
-1. **ONE topic per run** - Focus only on the topic given
-2. **Execute ALL steps** - Do not skip any step
-3. **PLAN first, ACT later** - Never move files without user approval
-4. **Number every item** - So user can reference by number
+1. **COPY template exactly** - No creative formatting!
+2. **ONE topic per run** - Focus only on the topic given
+3. **Execute ALL steps** - Do not skip any step
+4. **PLAN first, ACT later** - Never move files without user approval
+5. **Use 🗄️ for archive, ✅ for keep** - These exact icons!
 
 ---
 
@@ -106,31 +100,48 @@ EOF
 )"
 ```
 
-### STEP 4: Return issue link + file list for verification
+### STEP 4: COPY THIS TEMPLATE (fill in [...] only)
 
-After creating the issue, output this EXACT format:
+**COPY-PASTE this template. Only replace parts in [brackets].**
 
 ```
 ✅ Archive plan created!
 
 📋 Issue: #[NUMBER]
-🔗 [GITHUB_URL]
+🔗 [URL]
 
-## Files Found (for main agent to verify)
-COUNT: [N] files
+## Summary
+| Metric | Value |
+|--------|-------|
+| Total | [N] files |
+| Archive | [X] files |
+| Keep | [Y] files |
 
-PATHS:
-1. [exact/path/to/file1.md]
-2. [exact/path/to/file2.sh]
-...
+## Files
+| # | Path | Age | Act |
+|---|------|-----|-----|
+| 1 | [.path/to/file1] | [Xd] | 🗄️ |
+| 2 | [.path/to/file2] | [Xd] | 🗄️ |
+[CONTINUE FOR ALL FILES - NO "..."]
 
-## Quick Actions
-- `archive all` - Archive all [N] files
-- `info #1` - Details on file 1
-- `skip` - Cancel
+## Verify
+\`\`\`bash
+ls [PATTERN] 2>/dev/null | wc -l
+# Expected: [N]
+\`\`\`
+
+## Actions
+- `archive all` → Move [X] files
+- `skip` → Cancel
 ```
 
-**WHY**: Main agent will verify COUNT matches, not re-list files. Saves tokens!
+**RULES:**
+- COPY template exactly as shown above
+- Replace [brackets] with real values
+- List EVERY file (no "..." or summaries)
+- Age format: `8d` = 8 days old
+- Act column: 🗄️ = archive, ✅ = keep
+- Table must have header row with |---|
 
 ---
 
@@ -177,27 +188,40 @@ Before finishing:
 
 ---
 
-## EXAMPLE OUTPUT
-
-After creating the GitHub issue, return:
+## EXAMPLE OUTPUT (10/10)
 
 ```
 ✅ Archive plan created!
 
-📋 Issue: #44 - 📦 archive: MAW - 4 items analyzed
-🔗 Link: https://github.com/user/repo/issues/44
+📋 Issue: #45
+🔗 https://github.com/user/repo/issues/45
 
-## Quick Summary
-| # | Item | Recommendation |
-|---|------|----------------|
-| 1 | 09-31_retrospective.md | 🗄️ Archive |
-| 2 | 20.11_maw-infrastructure.md | ✅ Keep |
-| 3 | 20.45_pocketbase-multiagent.md | ✅ Keep |
-| 4 | INBOX-DESIGN-V1.md | 🗄️ Archive |
+## Summary
+| Metric | Value |
+|--------|-------|
+| Total | 4 files |
+| Archive | 2 files |
+| Keep | 2 files |
 
-📊 Archive: 2 | Keep: 2
+## Files (VERIFY: `ls pattern | wc -l` = 4)
 
-Tell me: `archive #1 #4`, `info #1`, or `skip`
+| # | Path | Age | Action |
+|---|------|-----|--------|
+| 1 | .claude/commands/maw.sync.md | 8d | 🗄️ |
+| 2 | .claude/commands/maw.sync.sh | 8d | 🗄️ |
+| 3 | .codex/prompts/maw.hey.md | 1d | ✅ |
+| 4 | .codex/prompts/maw.zoom.md | 1d | ✅ |
+
+## Verify Command
+\`\`\`bash
+ls .claude/commands/maw.* .codex/prompts/maw.* 2>/dev/null | wc -l
+# Expected: 4
+\`\`\`
+
+## Actions
+- `archive all` → Move 2 files to ψ-archive/
+- `archive #1 #2` → Move specific files
+- `skip` → Cancel
 ```
 
 ---
