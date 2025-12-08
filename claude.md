@@ -34,8 +34,10 @@ This document provides comprehensive guidelines for an AI assistant working on a
 -   `nnn` - Smart planning: Auto-runs `ccc` if no recent context → Create a detailed implementation plan.
 -   `gogogo` - Execute the most recent plan issue step-by-step.
 
-#### Project Management
--   `rrr` - Create a detailed session retrospective.
+#### Knowledge Management (3-Layer System)
+-   `sss` - Session snapshot → `ψ-logs/` (Layer 1: Raw capture)
+-   `til` - Today I Learned → `ψ-learnings/` (Layer 2: Distilled patterns)
+-   `rrr` - Retrospective → `ψ-retrospectives/` (Layer 3: Full narrative for book)
 
 
 ## Quick Start Guide
