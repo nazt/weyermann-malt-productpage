@@ -597,6 +597,15 @@ Closes #[issue-number]
 -   **Co-creation insight**: User specificity ("1 2 3 / 4 5 6") shaped better decisions than hypothetical planning. Iterative feedback loop prevented over-engineering.
 -   **Issue #38**: Context snapshot documenting 8 layout profiles with technical implementation details
 
+### Shell Compatibility & Tmux Automation (2025-12-08 - Warp Agent Fixes)
+-   **Anti-Pattern: Shell-specific functions in tmux** - Bash functions from `.envrc` don't load in ZSH shells reliably. Use direct commands instead: `cd /path && echo 'ready'` instead of function calls
+-   **Discovery: Nested .envrc override gotcha** - Agent subdirectories have their own .envrc files that redefine parent variables (e.g., `repo_root=$PWD`). Can cause path corruption like `/agents/5/agents/5`
+-   **Pattern: Use git over variables for paths** - `git rev-parse --show-toplevel` is more reliable than relying on `$repo_root` which can be overridden by nested configs
+-   **Best Practice: Test in target shells** - Always test tmux automation in all target shells (bash, zsh). Behavior differs significantly; assume nothing
+-   **Lesson: Simplicity beats abstraction** - Direct `cd` commands more robust than wrapped functions. Follows Unix principle: do one thing well
+-   **Pattern: Shell compatibility checklist** - Document which shells are used, test functions in each, prefer simple commands over abstractions
+-   **Related docs**: ψ-retrospectives/2025-12/08/08.15_warp-agent-fixes.md (best practices, DO/DON'T examples)
+
 ### Planning & Architecture Patterns (2025-08-26)
 -   **Pattern**: Use parallel agents for analyzing different aspects of complex systems
 -   **Anti-Pattern**: Creating monolithic plans that try to implement everything at once
