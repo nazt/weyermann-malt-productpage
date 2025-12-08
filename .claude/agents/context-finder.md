@@ -26,6 +26,9 @@ Search and return **TIME + REFERENCE** for all results.
 
 ## Files
 path (YYYY-MM-DD HH:MM)
+
+---
+📊 ~X results | ~Y tokens
 ```
 
 ## Commands
