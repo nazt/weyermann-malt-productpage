@@ -50,6 +50,18 @@
 
 ---
 
+## Delegation & Subagent Self-Improvement (2025-12-08)
+-   **RULE: Never read code directly** - Main agent (Opus) should NEVER use `cat`, `grep`, or Read tool for exploration. Always delegate to context-finder (Haiku). Opus tokens ~15x more expensive.
+-   **Pattern: Delegate-first research** - `Task(context-finder, "find X")` returns summary. Don't pollute main agent context with raw code.
+-   **Pattern: Self-improvement loop** - When subagent underperforms: research → update `.claude/agents/[name].md` → test → iterate
+-   **Anti-Pattern: Complex detection logic** - MAW had 200 lines of pane detection, took 49s. Replaced with simple kill → start → verify (100 lines, fast).
+-   **Discovery: Profile parameterization** - `maw start profile0` (1 window, 3 panes) vs `profile14` (2 windows, 6 panes). Wrong default = wrong output.
+-   **Best Practice: Test immediately after updating subagent** - Spawn the subagent right after editing its definition to verify the fix works.
+-   **User quote**: "Why are you reading that yourself? Use context-finder." - This is the rule, not a suggestion.
+-   **Related docs**: ψ-learnings/007-subagent-self-improvement-loop.md, ψ-learnings/008-delegate-dont-read-code-directly.md
+
+---
+
 ## Planning & Architecture Patterns (2025-08-26)
 -   **Pattern**: Use parallel agents for analyzing different aspects of complex systems
 -   **Anti-Pattern**: Creating monolithic plans that try to implement everything at once
