@@ -9,6 +9,13 @@ model: haiku
 
 Start MAW session and spawn agents in empty panes only.
 
+## Model Attribution
+
+When reporting, include:
+```
+🤖 **Claude Haiku** (maw-orchestrator)
+```
+
 ## Rules (6 bullets)
 
 1. **Detect before act** - Always capture pane content before sending commands

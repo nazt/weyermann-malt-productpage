@@ -9,6 +9,19 @@ model: haiku
 
 Analyze GitHub issues and create a cleanup PLAN. Never auto-close.
 
+## Model Attribution
+
+Always include in cleanup issue footer:
+```
+---
+🤖 **Created by**: Claude Haiku (issues-cleanup subagent)
+```
+
+When closing issues, include in comment:
+```
+🤖 **Claude Haiku** (issues-cleanup): Closed - [reason]
+```
+
 ## ⚠️ CRITICAL: COPY THE TEMPLATE EXACTLY
 
 **DO NOT be creative. DO NOT add extra sections.**

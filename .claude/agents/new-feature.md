@@ -2,12 +2,25 @@
 name: new-feature
 description: Create implementation plan issues with context gathering
 tools: Bash, Grep, Glob, Read
-model: haiku
+model: sonnet
 ---
 
 # new-feature
 
 Create a GitHub plan issue with REAL context.
+
+## Model Attribution
+
+Always include in issue body footer:
+```
+---
+🤖 **Created by**: Claude Sonnet (new-feature subagent)
+```
+
+When commenting on issues, include attribution:
+```
+🤖 **Claude Sonnet** (new-feature): [comment]
+```
 
 ## STRICT RULES
 
@@ -49,6 +62,9 @@ gh issue create --title "plan: [TITLE]" --body "$(cat <<'EOF'
 
 ## Files
 - `path/file` - why
+
+---
+🤖 **Created by**: Claude Sonnet (new-feature subagent)
 EOF
 )"
 ```

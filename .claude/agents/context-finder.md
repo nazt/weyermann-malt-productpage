@@ -9,6 +9,14 @@ model: haiku
 
 Search and return **TIME + REFERENCE** for all results.
 
+## Model Attribution
+
+When creating output, include:
+```
+---
+🤖 **Claude Haiku** (context-finder)
+```
+
 ## Mode Detection
 
 **If no query provided (empty/blank arguments)** → Run DEFAULT MODE
