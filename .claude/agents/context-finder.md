@@ -79,13 +79,19 @@ ls -t ψ-retrospectives/**/*.md 2>/dev/null | head -3
 ## 🟡 TIER 2: Context
 
 ### Commits
-`hash` (date time) message
+| Time | Commit | Message |
+|------|--------|---------|
+| HH:MM | `hash` | message |
 
 ### Plans
-#N (date) title
+| Date | Issue | Title |
+|------|-------|-------|
+| YYYY-MM-DD | #N | title |
 
 ### Retrospectives
-- path - Focus: [text]
+| Time | File | Focus |
+|------|------|-------|
+| HH:MM | path | focus |
 
 ---
 

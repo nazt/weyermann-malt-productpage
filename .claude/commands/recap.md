@@ -77,13 +77,19 @@ prompt: |
   ## 🟡 TIER 2: Context
 
   ### Commits (Last 10)
-  `hash` (date time) message
+  | Time | Commit | Message |
+  |------|--------|---------|
+  | HH:MM | `hash` | message |
 
   ### Active Plans
-  #N (date) title
+  | Date | Issue | Title |
+  |------|-------|-------|
+  | YYYY-MM-DD | #N | title |
 
   ### Recent Retrospectives
-  - path - Focus: [extracted]
+  | Time | File | Focus |
+  |------|------|-------|
+  | HH:MM | path | focus text |
 
   ---
 
