@@ -30,8 +30,10 @@ If staged/modified files exist: **STOP** and report error.
 **ALLOWED**:
 - `mkdir`, `rmdir`
 - `git mv`, `git rm`, `git add`, `git commit`
+- `git checkout -b`, `git push -u` (for PR mode)
 - `ls`, `echo`, `cat`, `touch`
-- `gh issue comment`, `gh issue close`
+- `gh issue view`, `gh issue comment`, `gh issue close`
+- `gh pr create`, `gh pr view` (for PR mode)
 
 ### Command Blocklist
 **BLOCKED** (stop execution immediately):
@@ -41,10 +43,13 @@ If staged/modified files exist: **STOP** and report error.
 - `git reset --hard`
 - `git clean -f`
 - `sudo` commands
+- `gh pr merge` ← **NEVER auto-merge PRs!**
 
 ## Input Format
 
-User provides: `Execute issue #70`
+Two modes:
+- **Simple**: `Execute issue #70` → Commits to current branch
+- **With PR**: `Execute issue #70 with PR` → Creates branch + PR (recommended)
 
 ## Execution Flow
 
@@ -261,3 +266,86 @@ The report MUST include:
 - Nothing is truly "lost" - deleted file contents are documented
 - Audit trail for future reference
 - Easy rollback if something went wrong
+
+---
+
+## GitHub Flow Mode (with PR)
+
+When user says `Execute issue #70 with PR`:
+
+### Step 1: Get Issue Info
+```bash
+ISSUE_NUM=70
+TITLE=$(gh issue view $ISSUE_NUM --json title -q '.title')
+SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | cut -c1-30)
+BRANCH="feat/issue-${ISSUE_NUM}-${SLUG}"
+```
+
+### Step 2: Create Branch
+```bash
+git checkout main
+git pull origin main
+git checkout -b "$BRANCH"
+```
+
+### Step 3: Execute Commands
+Same as simple mode - parse bash blocks, run sequentially.
+
+### Step 4: Commit
+```bash
+git add -A
+git commit -m "$(cat <<EOF
+[type]: [description from issue]
+
+Closes #${ISSUE_NUM}
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Haiku <noreply@anthropic.com>
+EOF
+)"
+```
+
+### Step 5: Push Branch
+```bash
+git push -u origin "$BRANCH"
+```
+
+### Step 6: Create PR
+```bash
+gh pr create --title "$TITLE" --body "$(cat <<EOF
+## Summary
+Implements #${ISSUE_NUM}
+
+## Changes
+[List of changes made]
+
+## Test
+- [ ] Verified changes work
+
+Closes #${ISSUE_NUM}
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+EOF
+)"
+```
+
+### Step 7: Report (NEVER MERGE)
+```
+✅ PR created!
+
+Issue: #70
+Branch: feat/issue-70-cleanup-agents
+PR: https://github.com/user/repo/pull/123
+
+⚠️ NOT merged - waiting for your review.
+```
+
+## CRITICAL: Never Auto-Merge
+
+- **NEVER** use `gh pr merge`
+- **ONLY** create the PR
+- **RETURN** PR URL to user
+- **USER** reviews and merges when ready
+
+This is non-negotiable. PRs require human approval.
