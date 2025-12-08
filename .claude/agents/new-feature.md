@@ -18,8 +18,8 @@ Create a GitHub plan issue with REAL context.
 ## Step 1: Gather Context
 
 ```bash
-# Get RECENT issues (last 5) - date first
-gh issue list --limit 5 --json number,createdAt | jq -r '.[] | "- (\(.createdAt[:10])) #\(.number)"'
+# Get RECENT issues (last 5) - sorted by number
+gh issue list --limit 5 --json number,createdAt | jq -r 'sort_by(.number) | .[] | "- #\(.number) (\(.createdAt[:10]))"'
 
 # Get recent commits
 git log --format="- \`%h\` (%ad) %s" --date=format:"%H:%M" -5
@@ -33,8 +33,9 @@ gh issue create --title "plan: [TITLE]" --body "$(cat <<'EOF'
 **Type**: Implementation Plan
 
 **Related**:
-- (2025-12-08) #51
-- (2025-12-08) #50
+- #38 (2025-12-08)
+- #42 (2025-12-08)
+- #50 (2025-12-08)
 
 ## Problem
 [Real problem description]
@@ -52,13 +53,14 @@ EOF
 )"
 ```
 
-## CORRECT:
+## CORRECT (sorted by issue number):
 
 ```
 **Related**:
-- (2025-12-08) #51
-- (2025-12-08) #50
-- (2025-12-08) #42
+- #38 (2025-12-08)
+- #42 (2025-12-08)
+- #50 (2025-12-08)
+- #51 (2025-12-08)
 ```
 
-Format: `(YYYY-MM-DD) #N` - date first, then issue number.
+Format: `#N (YYYY-MM-DD)` - sorted ascending by issue number.
