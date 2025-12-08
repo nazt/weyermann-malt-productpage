@@ -26,9 +26,9 @@ Create issue with `gh issue create`:
 **Type**: Implementation Plan
 
 ## Context
-- Recent commits: ...
-- Related issues: ...
-- Key files: ...
+- Commits: `hash` (HH:MM) message
+- Related: #N (YYYY-MM-DD) title
+- Files: path (modified date)
 
 ## Problem
 [What needs to be solved]
@@ -67,6 +67,20 @@ gh issue create --title "plan: [TITLE]" --body "..."
 ## Rules
 
 1. **Gather first** - Read context before planning
-2. **Link issues** - Reference related issues
+2. **TIME + REFERENCE** - All issues/commits MUST have dates
 3. **Be specific** - Concrete steps, not vague goals
 4. **Return URL** - Always return the issue URL created
+
+## Reference Format
+
+**Always include time:**
+```
+#42 (2025-12-08) Auto-start Codex
+`abc123` (09:17) feat: Add feature
+path/file.md (2025-12-08)
+```
+
+**Never just:**
+```
+#42, #50, #38  ← NO! Missing dates
+```
