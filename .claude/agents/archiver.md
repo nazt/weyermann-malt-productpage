@@ -57,47 +57,53 @@ ls -la "[FILE]"                    # modification date
 grep -r -c "[FILENAME]" . --include="*.md" 2>/dev/null | grep -v ":0$" | wc -l   # reference count
 ```
 
-### STEP 3: Create GitHub Issue with the PLAN
+### STEP 3: Create GitHub Issue with FULL PLAN
 
-**IMPORTANT**: Create a GitHub issue so the plan is saved and shareable!
+**IMPORTANT**: The issue body MUST contain the FULL plan, not just a summary!
 
 ```bash
-gh issue create --title "📦 archive: [TOPIC] - [N] items analyzed" --body "$(cat <<'EOF'
+gh issue create --title "📦 archive: [TOPIC]" --body "$(cat <<'EOF'
 # 📦 Archive Plan: [TOPIC]
 
 **Created**: [DATE] GMT+7
-**Total found**: [N]
+**Total**: [N] files
 
-## Items Found
+## Summary
+| Metric | Value |
+|--------|-------|
+| Total | [N] files |
+| Archive | [X] files |
+| Keep | [Y] files |
 
-| # | Item | Age | Refs | Recommendation |
-|---|------|-----|------|----------------|
-| 1 | [path] | [X days] | [N] | 🗄️ Archive / ✅ Keep |
-| 2 | [path] | [X days] | [N] | 🗄️ Archive / ✅ Keep |
-| 3 | [path] | [X days] | [N] | 🗄️ Archive / ✅ Keep |
+## Files
+| # | Path | Age | Act |
+|---|------|-----|-----|
+| 1 | [path1] | [Xd] | 🗄️ |
+| 2 | [path2] | [Xd] | 🗄️ |
+[ALL FILES HERE]
 
-## 🗄️ Archive Candidates (old + 0 refs)
-- #1: [reason]
-- #3: [reason]
+## Verify
+\`\`\`bash
+ls [PATTERN] 2>/dev/null | wc -l
+# Expected: [N]
+\`\`\`
 
-## ✅ Keep (recent or referenced)
-- #2: [reason]
-
-## 📊 Summary
-- Archive: [X] items
-- Keep: [Y] items
-
----
-
-## Next Actions (tell me which):
-
-- `archive #1` - Move item #1 to ψ-archive/
-- `archive #1 #3` - Move multiple items
-- `archive all` - Move all archive candidates
-- `info #2` - Get more details about item #2
-- `skip` - Do nothing, end session
+## Actions
+- archive all
+- skip
 EOF
 )"
+```
+
+**CRITICAL**: Issue body must have:
+- Summary table
+- ALL files in table (not "...")
+- Verify command
+- Actions section
+
+Old format (DO NOT USE):
+```bash
+gh issue create --title "..." --body "short description"  # ❌ NO!
 ```
 
 ### STEP 4: COPY THIS TEMPLATE (fill in [...] only)
